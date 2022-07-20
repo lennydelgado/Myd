@@ -125,16 +125,17 @@ help_build: str = ', '.join(os.listdir(os.getcwd() + "/conf"))
 help_build = help_build.replace(help_build, termcolor.colored(help_build, 'green'))
 help_build = "Enter which configuration file you want use: [" + help_build + "]"
 
+# Check user input and check if the file mentioned exist even if the directory is missing at the beginning of input
 def error_conf_file(file: str):
     dir: str = file.split("/", 1)[0] + "/"
-    if (dir != "conf/") and (file):
+    if (dir != "conf/"):
         file_path: str = os.getcwd() + "/conf/" + file
         if not os.path.exists(file_path):
             print("[[bold red]Error[/bold red]]: No such file '" +  file + "'")
             raise typer.Exit(code=1)
         else:
             return file_path
-    elif (dir == "conf/") and (file):
+    elif (dir == "conf/"):
         file_path: str = os.getcwd() + "/" + file
         if not os.path.exists(file_path):
             print("[[bold red]Error[/bold red]]: No such file '" +  file + "'")
@@ -142,34 +143,77 @@ def error_conf_file(file: str):
         else:
             return file_path
 
+# Check if conf file is correctly formated and if is not empty
 def check_valid_file(data: list, line: int):
     param: str = data[line].split("=", 1)[1]
-    data[line] = data[line].split("=", 1)[0]
-    if ((len(param) == 1) and (line == 0)) or ((line == 0) and (data[line] != "REPO_DOCKER_URL")):
+    name_val: str = data[line].split("=", 1)[0]
+    if ((len(param) == 1) and (line == 0)) or ((line == 0) and (name_val != "REPO_DOCKER_URL")):
         print("[[bold red]Error[/bold red]]: The configuration file is correct but the data '[bold red]REPO_DOCKER_URL[/bold red]' is badly formatted, please regenerate one with the command 'python myd.py create'")
         raise typer.Exit(code=1)
-    if ((len(param) == 1) and (line == 1)) or ((line == 1) and (data[line] != "PYTHON_VERSION")):
+    if ((len(param) == 1) and (line == 1)) or ((line == 1) and (name_val != "PYTHON_VERSION")):
         print("[[bold red]Error[/bold red]]: The configuration file is correct but the data '[bold red]PYTHON_VERSION[/bold red]' is badly formatted, please regenerate one with the command 'python myd.py create'")
         raise typer.Exit(code=1)
-    if ((len(param) == 1) and (line == 2)) or ((line == 2) and (data[line] != "GIT_TOKEN")):
+    if ((len(param) == 1) and (line == 2)) or ((line == 2) and (name_val != "GIT_TOKEN")):
         print("[[bold red]Error[/bold red]]: The configuration file is correct but the data '[bold red]GIT_TOKEN[/bold red]' is badly formatted, please regenerate one with the command 'python myd.py create'")
         raise typer.Exit(code=1)
-    if ((len(param) == 1) and (line == 3)) or ((line == 3) and (data[line] != "GIT_REPO")):
+    if ((len(param) == 1) and (line == 3)) or ((line == 3) and (name_val != "GIT_REPO")):
         print("[[bold red]Error[/bold red]]: The configuration file is correct but the data '[bold red]GIT_REPO[/bold red]' is badly formatted, please regenerate one with the command 'python myd.py create'")
         raise typer.Exit(code=1)
     return
 
+# Base value to navigate throw list with all parameter for more understanding
+docker: int = 0
+python: int = 1
+git_token: int = 2
+git_repo: int = 3
+
+
+# Run shell scrit to build debian image
+def build_debian(docker_url: str):
+    subprocess.call(['sh', 'debian_myd/./build-debian.sh', docker_url])
+
+# Run shell scrit to build python image
+def build_python(python_version: str, docker_url: str):
+    subprocess.call(['sh', 'python_myd/./build-python.sh', python_version, docker_url])
+
+# Run shell scrit to build python image
+def build_nginx(python_version: str, docker_url: str, git_token: str, git_repo: str):
+    subprocess.call(['sh', 'nginx/./build-myd-docs.sh', python_version, docker_url, git_token, git_repo])
+
+# Check if user want to build a specific container or all.
+
+# Layer order: debian -> python -> nginx
+def build_container(data: list, option: str):
+    if (option != "debian") and (option != "python") and (option != "nginx") and (option != "all"):
+        print("[[bold red]Error[/bold red]]: No such option '" + option + "'")
+        raise typer.Exit(code=1)
+    if (option == "debian"):
+        build_debian(data[docker])
+        print("[bold green]The debian container has been successfully built[/bold green]")
+        print("[bold blue]Everything finished being built ![/bold blue]")
+    if (option == "python"):
+        build_debian(data[docker])
+        print("[bold green]The debian container has been successfully built[/bold green]")
+        build_python(data[python], data[docker])
+        print("[bold green]The python container has been successfully built[/bold green]")
+        print("[bold blue]Everything finished being built ![/bold blue]")
+    if (option == "nginx") or (option == "all"):
+        build_debian(data[docker])
+        print("[bold green]The debian container has been successfully built[/bold green]")
+        build_python(data[python], data[docker])
+        print("[bold green]The python container has been successfully built[/bold green]")
+        build_nginx(data[python], data[docker], data[git_token], data[git_repo])
+        print("[bold green]The nginx container has been successfully built[/bold green]")
+        print("[bold blue]Everything finished being built ![/bold blue]")
+        
+# Use to build container for server
 @app.command(rich_help_panel="Commands :computer:")
-def build(file: str = typer.Argument(..., metavar=termcolor.colored("File", 'red'), show_default=False)):
+def build(file: str = typer.Argument(...,help=help_build, metavar=termcolor.colored("File", 'red'), show_default=False), option: str = typer.Argument("all", help="Use to build specific container: debian, python, nginx", metavar=termcolor.colored("Option", 'red'))):
     """
     Build each Docker container as needed to run. :brick:
     """
-    docker: int = 0
-    python: int = 1
-    git_token: int = 2
-    git_repo: int = 3
     key_value: list = [docker, python, git_token, git_repo]
-    error_conf_file(file)
+    file = error_conf_file(file)
     with open(file, 'r') as f:
         data: list = f.readlines()
     if (len(data) != 4):
@@ -177,14 +221,31 @@ def build(file: str = typer.Argument(..., metavar=termcolor.colored("File", 'red
         raise typer.Exit(code=1)
     for i in key_value:
         check_valid_file(data, i)
-    # print(file)
+        data[i] = data[i].split("=", 1)[1]
+        data[i] = data[i].split("\n", 1)[0]
+    build_container(data, option)
+
+def check_ext_port(ext_port: str):
+    if not ext_port.isnumeric():
+        print("[[bold red]Error[/bold red]]: External port container other character than number, please put only number")
+        raise typer.Exit(code=1)
+
+
+# ---------------------------------------------------------------------------
 
 @app.command(rich_help_panel="Commands :computer:")
-def run():
+def run(file: str = typer.Argument(...,help=help_build, metavar=termcolor.colored("File", 'red'), show_default=False), ext_port: str = typer.Argument(..., help="External port web server will use", metavar=termcolor.colored("External_port", 'red'), show_default=False)):
     """
     Launches the Nginx server. :rocket:
     """
-    j = 12
+    check_ext_port(ext_port)
+    file = error_conf_file(file)
+    docker: int = 0
+    with open(file, 'r') as f:
+        data: list = f.readlines()
+    docker_url: str = data[docker].split("=", 1)[1]
+    docker_url = docker_url.split("\n", 1)[0]
+    subprocess.call(['sh', 'nginx/./run-nginx.sh', docker_url, ext_port])
 
 if __name__ == "__main__":
     app()
