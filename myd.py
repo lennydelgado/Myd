@@ -2,7 +2,6 @@ from pickle import TRUE
 from platform import python_version
 from typing import Optional
 from rich import print as print
-import rich.markup
 import rich.markdown
 from colorama import init, Fore, Back, Style
 import typer
@@ -14,7 +13,7 @@ from rich.table import Table
 
 console = Console()
 
-app = typer.Typer(rich_markup_mode="markdown")
+app = typer.Typer(rich_markup_mode="rich")
 
 def get_param(param: str):
     if param == "docker_url" or param == "docker" or param == "d":
@@ -62,14 +61,13 @@ def init_conf():
             file.write("PYTHON_VERSION=" + python_version + "\n")
             file.write("GIT_TOKEN=" + git_token + "\n")
             file.write("GIT_REPO=" + git_repo + "\n")
-        raise typer.Exit(code=0)
     else:
         with open(conf_path, 'w')  as file:
             file.write("REPO_DOCKER_URL=" + repo_docker_url + "\n")
             file.write("PYTHON_VERSION=" + python_version + "\n")
             file.write("GIT_TOKEN=" + git_token + "\n")
             file.write("GIT_REPO=" + git_repo + "\n")
-        raise typer.Exit(code=0)
+    return conf_name
 
 def edit_conf():
     # Check if dir conf is exist
@@ -101,7 +99,7 @@ def edit_conf():
     print(data[line])
     with open(file_path, 'w') as file:
         file.writelines(data)
-    raise typer.Exit(code=0)
+    return file_name
 
 
 @app.command(rich_help_panel="Commands :computer:")
@@ -111,9 +109,12 @@ def create(edit: bool = typer.Option(False, help="Used to modify any existing co
     """
     init(autoreset=True)
     if not edit:
-        init_conf()
+        file: str = init_conf()
+        print("[bold green]Success: [/bold green]" "The file '[bold red]" + file + "[/bold red]' has been created successfully")
     else:
-        edit_conf()
+        file: str = edit_conf()
+        print("[bold green]Success: [/bold green]" "The file '[bold red]" + file + "[/bold red]' has been edited successfully")
+    
 
 # ---------------------------------------------------------------------------
 
@@ -225,13 +226,12 @@ def build(file: str = typer.Argument(...,help=help_build, metavar=termcolor.colo
         data[i] = data[i].split("\n", 1)[0]
     build_container(data, option)
 
+# ---------------------------------------------------------------------------
+
 def check_ext_port(ext_port: str):
     if not ext_port.isnumeric():
         print("[[bold red]Error[/bold red]]: External port container other character than number, please put only number")
         raise typer.Exit(code=1)
-
-
-# ---------------------------------------------------------------------------
 
 @app.command(rich_help_panel="Commands :computer:")
 def run(file: str = typer.Argument(...,help=help_build, metavar=termcolor.colored("File", 'red'), show_default=False), ext_port: str = typer.Argument(..., help="External port web server will use", metavar=termcolor.colored("External_port", 'red'), show_default=False)):
