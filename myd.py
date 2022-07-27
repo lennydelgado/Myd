@@ -8,17 +8,12 @@
 #
 #################################################################################
 
-from pickle import TRUE
-from platform import python_version
-from typing import Optional
 from rich import print as print
-from colorama import init, Fore, Back, Style
 import typer
 import os
 import subprocess
 import termcolor
 from rich.console import Console
-from rich.table import Table
 from rich.progress import Progress, SpinnerColumn, TextColumn
 
 console = Console()
@@ -94,7 +89,7 @@ def edit_conf():
         print("[[bold red]Error[/bold red]]: No such file '" + file_name + "'")
         raise typer.Exit(code=1)
 
-    # Ask user with wich params  he want to edit
+    # Ask user with wich parameter he want to edit
     print("[green]\nParameters: docker_url, python_version, git_token, git_repo[/green]")
     param: str = input("\nPlease select which parameter you want edit: ")
     line: int = get_param(param)
@@ -117,7 +112,6 @@ def create(edit: bool = typer.Option(False, help="Used to modify any existing co
     """
     Create configuration file for Myd. :writing_hand:
     """
-    init(autoreset=True)
     if not edit:
         file: str = init_conf()
         print("[bold green]Success: [/bold green]" "The file '[bold red]" + file + "[/bold red]' has been created successfully")
@@ -181,19 +175,27 @@ git_repo: int = 3
 
 # Run shell scrit to build debian image
 def build_debian(docker_url: str):
+
+# Create directory to store logs files
     if not os.path.isdir("logs"):
         create_dir("logs", os.getcwd())
+
+# Write in file for log and add spinning bar during docker build process
     with open("logs/debian_build_log.txt", "w+") as log, Progress(SpinnerColumn(), TextColumn("[progress.description]{task.description}"), transient=True) as progress:
         progress.add_task(description="Building Debian container...", total=None)
         raw_output: subprocess.CompletedProcess = subprocess.run(['sh', 'debian_myd/./build-debian.sh', docker_url], capture_output=True)
         log.write("----------------------------------DEBIAN LOG----------------------------------\n\n")
         log.write(raw_output.stdout.decode())
+
+# Print error if build failed
         if raw_output.stderr.decode():
             print("[bold red]Error:[/bold red] " + raw_output.stderr.decode() + "[bold green]Please check debian_build_log.txt into logs directory for futher informations[/bold green]")
             raise typer.Exit(code=1)
 
 # Run shell scrit to build python image
 def build_python(python_version: str, docker_url: str):
+
+# Create directory to store logs files
     if not os.path.isdir("logs"):
         create_dir("logs", os.getcwd())
     with open("logs/python_build_log.txt", "w+") as log, Progress(SpinnerColumn(), TextColumn("[progress.description]{task.description}"), transient=True) as progress:
@@ -201,25 +203,32 @@ def build_python(python_version: str, docker_url: str):
         raw_output: subprocess.CompletedProcess = subprocess.run(['sh', 'python_myd/./build-python.sh', python_version, docker_url], capture_output=True)
         log.write("----------------------------------PYTHON LOG----------------------------------\n\n")
         log.write(raw_output.stdout.decode())
+
+# Print error if build failed
         if raw_output.stderr.decode():
             print("[bold red]Error:[/bold red] " + raw_output.stderr.decode() + "[bold green]Please check python_build_log.txt into logs directory for futher informations[/bold green]")
             raise typer.Exit(code=1)
 
 # Run shell scrit to build python image
 def build_nginx(python_version: str, docker_url: str, git_token: str, git_repo: str):
+
+# Create directory to store logs files
     if not os.path.isdir("logs"):
         create_dir("logs", os.getcwd())
+
+# Write in file for log and add spinning bar during docker build process
     with open("logs/nginx_build_log.txt", "w+") as log, Progress(SpinnerColumn(), TextColumn("[progress.description]{task.description}"), transient=True) as progress:
         progress.add_task(description="Building Nginx container...", total=None)
         raw_output: subprocess.CompletedProcess = subprocess.run(['sh', 'nginx/./build-myd-docs.sh', python_version, docker_url, git_token, git_repo], capture_output=True)
         log.write("----------------------------------NGINX LOG----------------------------------\n\n")
         log.write(raw_output.stdout.decode())
+
+# Print error if build failed
         if raw_output.stderr.decode():
             print("[bold red]Error:[/bold red] " + raw_output.stderr.decode() + "[bold green]Please check nginx_build_log.txt into logs directory for futher informations[/bold green]")
             raise typer.Exit(code=1)
 
 # Check if user want to build a specific container or all.
-
 # Layer order: debian -> python -> nginx
 def build_container(data: list, option: str):
     if (option != "debian") and (option != "python") and (option != "nginx") and (option != "all"):
@@ -250,6 +259,8 @@ def build(file: str = typer.Argument(...,help=help_build, metavar=termcolor.colo
     """
     Build each Docker container as needed to run. :brick:
     """
+
+# Store config file index value in list and prepare argument for build
     key_value: list = [docker, python, git_token, git_repo]
     file = error_conf_file(file)
     with open(file, 'r') as f:
@@ -265,6 +276,7 @@ def build(file: str = typer.Argument(...,help=help_build, metavar=termcolor.colo
 
 # ---------------------------------------------------------------------------
 
+# Check if external port is number
 def check_ext_port(ext_port: str):
     if not ext_port.isnumeric():
         print("[[bold red]Error[/bold red]]: External port container other character than number, please put only number")
@@ -275,15 +287,22 @@ def run(file: str = typer.Argument(...,help=help_build, metavar=termcolor.colore
     """
     Launches the Nginx server. :rocket:
     """
+
+# Error handling
     check_ext_port(ext_port)
     file = error_conf_file(file)
-    docker: int = 0
+
+# Get in a list all parameters and well formatted
     with open(file, 'r') as f:
         data: list = f.readlines()
     docker_url: str = data[docker].split("=", 1)[1]
     docker_url = docker_url.split("\n", 1)[0]
+
+# Create directory to store logs files
     if not os.path.isdir("logs"):
         create_dir("logs", os.getcwd())
+
+# Write in file for log and add spinning bar during docker build process
     with open("logs/nginx_run_log.txt", "w+") as log, Progress(SpinnerColumn(), TextColumn("[progress.description]{task.description}"), transient=True) as progress:
         progress.add_task(description="Running Nginx container on external port: " + ext_port + "...", total=None)
         raw_output: subprocess.CompletedProcess = subprocess.run(['sh', 'nginx/./run-nginx.sh', docker_url, ext_port], capture_output=True)
