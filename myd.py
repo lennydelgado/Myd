@@ -23,11 +23,13 @@ app = typer.Typer(rich_markup_mode="rich")
 def get_param(param: str):
     if param == "docker_url" or param == "docker" or param == "d":
         return 0
-    if param == "python_version" or param == "python" or param == "p":
+    if param == "python_version" or param == "python" or param == "py":
         return 1
     if param == "git_token" or param == "token" or param == "t":
         return 2
     if param == "git_repo" or param == "repo" or param == "r":
+        return 3
+    if param == "git_pages" or param == "page" or param == "pa":
         return 3
     print("[[bold red]Error[/bold red]]: '" + param + "' is not valid parameter")
     raise typer.Exit(code=1)
@@ -51,6 +53,7 @@ def init_conf():
     python_version: str = input("\nInput Python version (3.X.X): ")
     git_token: str = input("\nInput Github Token: ")
     git_repo: str = input("\nInput Github Repository: ")
+    git_pages: str = input("\nInput Github Repository URL with Github Pages (https://github.com/your_username/your_project.git): ")
 
     # Check if the user add .conf at the end of name or not
     if not conf_extension or conf_extension != ".conf":
@@ -66,12 +69,14 @@ def init_conf():
             file.write("PYTHON_VERSION=" + python_version + "\n")
             file.write("GIT_TOKEN=" + git_token + "\n")
             file.write("GIT_REPO=" + git_repo + "\n")
+            file.write("GIT_PAGES=" + git_pages + "\n")
     else:
         with open(conf_path, 'w')  as file:
             file.write("REPO_DOCKER_URL=" + repo_docker_url + "\n")
             file.write("PYTHON_VERSION=" + python_version + "\n")
             file.write("GIT_TOKEN=" + git_token + "\n")
             file.write("GIT_REPO=" + git_repo + "\n")
+            file.write("GIT_PAGES=" + git_pages + "\n")
     return conf_name
 
 def edit_conf():
@@ -90,7 +95,7 @@ def edit_conf():
         raise typer.Exit(code=1)
 
     # Ask user with wich parameter he want to edit
-    print("[green]\nParameters: docker_url, python_version, git_token, git_repo[/green]")
+    print("[green]\nParameters: docker_url, python_version, git_token, git_repo, git_pages[/green]")
     param: str = input("\nPlease select which parameter you want edit: ")
     line: int = get_param(param)
 
@@ -164,6 +169,9 @@ def check_valid_file(data: list, line: int):
     if ((len(param) == 1) and (line == 3)) or ((line == 3) and (name_val != "GIT_REPO")):
         print("[[bold red]Error[/bold red]]: The configuration file is correct but the data '[bold red]GIT_REPO[/bold red]' is badly formatted, please regenerate one with the command 'python myd.py create'")
         raise typer.Exit(code=1)
+    if ((len(param) == 1) and (line == 4)) or ((line == 4) and (name_val != "GIT_PAGES")):
+        print("[[bold red]Error[/bold red]]: The configuration file is correct but the data '[bold red]GIT_PAGES[/bold red]' is badly formatted, please regenerate one with the command 'python myd.py create'")
+        raise typer.Exit(code=1)
     return
 
 # Base value to navigate throw list with all parameter for more understanding
@@ -171,6 +179,7 @@ docker: int = 0
 python: int = 1
 git_token: int = 2
 git_repo: int = 3
+git_pages: int = 4
 
 
 # Run shell scrit to build debian image
@@ -265,7 +274,7 @@ def build(file: str = typer.Argument(...,help=help_build, metavar=termcolor.colo
     file = error_conf_file(file)
     with open(file, 'r') as f:
         data: list = f.readlines()
-    if (len(data) != 4):
+    if (len(data) != 5):
         print("[[bold red]Error[/bold red]]: The configuration file is not well formatted, please regenerate one with the command 'python myd.py create'")
         raise typer.Exit(code=1)
     for i in key_value:
@@ -312,8 +321,6 @@ def run(file: str = typer.Argument(...,help=help_build, metavar=termcolor.colore
             print("[bold red]Error:[/bold red] " + raw_output.stderr.decode() + "[bold green]Please check nginx_run_log.txt into logs directory for futher informations[/bold green]")
             raise typer.Exit(code=1)
     print("[bold green]Success: The server is running on external port " + ext_port +"[/bold green]")
-
-
 
 if __name__ == "__main__":
     app()

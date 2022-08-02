@@ -1,8 +1,0 @@
-----------------------------------NGINX LOG----------------------------------
-
-nginx-myd
-latest: Pulling from stagelenny/myd-docs
-Digest: sha256:f9c83ecc66d83cbfe14b91a50a98f6989a3c2a3ef29b5dfc12d5e0a1c4d853d1
-Status: Image is up to date for cb780901.gra7.container-registry.ovh.net/stagelenny/myd-docs:latest
-cb780901.gra7.container-registry.ovh.net/stagelenny/myd-docs:latest
-38118f85b0a3f7ccada8c61f6f8ae59b67d91ecc58f0bcd6a556b62ad1c6f1ee
