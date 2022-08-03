@@ -24,3 +24,4 @@ rich>=12.5.1
 shellingham>=1.4.0
 pygments>=2.12.0
 commonmark>=0.9.1
+termcolor>=1.1.0

@@ -29,8 +29,8 @@ def get_param(param: str):
         return 2
     if param == "git_repo" or param == "repo" or param == "r":
         return 3
-    if param == "git_pages" or param == "page" or param == "pa":
-        return 3
+    if param == "ext_port" or param == "ext" or param == "e":
+        return 4
     print("[[bold red]Error[/bold red]]: '" + param + "' is not valid parameter")
     raise typer.Exit(code=1)
 
@@ -38,7 +38,10 @@ def create_dir(dir: str, pwd: str):
     path: str = os.path.join(pwd, dir)
     os.mkdir(path)
     return
-
+def check_ext_port(ext_port: str):
+    if not ext_port.isnumeric():
+        print("[[bold red]Error[/bold red]]: External port container other character than number, please put only number")
+        raise typer.Exit(code=1)
 # Function use to create conf file
 def init_conf():
 
@@ -50,10 +53,24 @@ def init_conf():
     conf_name: str = input("Input name you want for configuration file: ")
     conf_extension: str = os.path.splitext(conf_name)[-1].lower()
     repo_docker_url: str = input("\nInput Docker Repository URL: ")
+
+
+    # Check if docker file with python version specify exist
     python_version: str = input("\nInput Python version (3.X.X): ")
+    python_docker_path: str = os.getcwd() + "/python_myd/python" + python_version + ".dockerfile"
+    while not (os.path.exists(python_docker_path)):
+        print("[bold red]Error[/bold red]: No such dockerfile with python version '" + python_version + "'")
+        python_version: str = input("\nInput Python version (3.X.X): ")
+        python_docker_path: str = os.getcwd() + "/python_myd/python" + python_version + ".dockerfile"
+
     git_token: str = input("\nInput Github Token: ")
     git_repo: str = input("\nInput Github Repository: ")
-    git_pages: str = input("\nInput Github Repository URL with Github Pages (https://github.com/your_username/your_project.git): ")
+
+    # Check if external port contains other character than number
+    external_port: str = input("\nInput external port will be used to run server: ")
+    while not (external_port.isnumeric()):
+        print("[bold red]Error[/bold red]: External port container other character than number, please put only number")
+        external_port = input("\nInput external port will be used to run server: ")
 
     # Check if the user add .conf at the end of name or not
     if not conf_extension or conf_extension != ".conf":
@@ -69,14 +86,14 @@ def init_conf():
             file.write("PYTHON_VERSION=" + python_version + "\n")
             file.write("GIT_TOKEN=" + git_token + "\n")
             file.write("GIT_REPO=" + git_repo + "\n")
-            file.write("GIT_PAGES=" + git_pages + "\n")
+            file.write("EXT_PORT=" + external_port + "\n")
     else:
         with open(conf_path, 'w')  as file:
             file.write("REPO_DOCKER_URL=" + repo_docker_url + "\n")
             file.write("PYTHON_VERSION=" + python_version + "\n")
             file.write("GIT_TOKEN=" + git_token + "\n")
             file.write("GIT_REPO=" + git_repo + "\n")
-            file.write("GIT_PAGES=" + git_pages + "\n")
+            file.write("EXT_PORT=" + external_port + "\n")
     return conf_name
 
 def edit_conf():
@@ -95,7 +112,7 @@ def edit_conf():
         raise typer.Exit(code=1)
 
     # Ask user with wich parameter he want to edit
-    print("[green]\nParameters: docker_url, python_version, git_token, git_repo, git_pages[/green]")
+    print("[green]\nParameters: docker_url, python_version, git_token, git_repo, ext_port[/green]")
     param: str = input("\nPlease select which parameter you want edit: ")
     line: int = get_param(param)
 
@@ -113,7 +130,7 @@ def edit_conf():
 
 
 @app.command(rich_help_panel="Commands :computer:")
-def create(edit: bool = typer.Option(False, help="Used to modify any existing configuration file")):
+def config(edit: bool = typer.Option(False, help="Used to modify any existing configuration file")):
     """
     Create configuration file for Myd. :writing_hand:
     """
@@ -169,8 +186,8 @@ def check_valid_file(data: list, line: int):
     if ((len(param) == 1) and (line == 3)) or ((line == 3) and (name_val != "GIT_REPO")):
         print("[[bold red]Error[/bold red]]: The configuration file is correct but the data '[bold red]GIT_REPO[/bold red]' is badly formatted, please regenerate one with the command 'python myd.py create'")
         raise typer.Exit(code=1)
-    if ((len(param) == 1) and (line == 4)) or ((line == 4) and (name_val != "GIT_PAGES")):
-        print("[[bold red]Error[/bold red]]: The configuration file is correct but the data '[bold red]GIT_PAGES[/bold red]' is badly formatted, please regenerate one with the command 'python myd.py create'")
+    if ((len(param) == 1) and (line == 4)) or ((line == 4) and (name_val != "EXT_PORT")):
+        print("[[bold red]Error[/bold red]]: The configuration file is correct but the data '[bold red]EXT_PORT[/bold red]' is badly formatted, please regenerate one with the command 'python myd.py create'")
         raise typer.Exit(code=1)
     return
 
@@ -179,8 +196,7 @@ docker: int = 0
 python: int = 1
 git_token: int = 2
 git_repo: int = 3
-git_pages: int = 4
-
+external_port: int = 4
 
 # Run shell scrit to build debian image
 def build_debian(docker_url: str):
@@ -264,7 +280,7 @@ def build_container(data: list, option: str):
         
 # Use to build container for server
 @app.command(rich_help_panel="Commands :computer:")
-def build(file: str = typer.Argument(...,help=help_build, metavar=termcolor.colored("File", 'red'), show_default=False), option: str = typer.Argument("all", help="Use to build specific container: debian, python, nginx", metavar=termcolor.colored("Option", 'red'))):
+def build(file: str = typer.Argument(...,help=help_build, metavar=termcolor.colored("File", 'red'), show_default=False), option: str = typer.Option("all", help="Use to build specific container: debian, python, nginx", metavar=termcolor.colored("Option", 'red'))):
     """
     Build each Docker container as needed to run. :brick:
     """
@@ -285,25 +301,19 @@ def build(file: str = typer.Argument(...,help=help_build, metavar=termcolor.colo
 
 # ---------------------------------------------------------------------------
 
-# Check if external port is number
-def check_ext_port(ext_port: str):
-    if not ext_port.isnumeric():
-        print("[[bold red]Error[/bold red]]: External port container other character than number, please put only number")
-        raise typer.Exit(code=1)
-
 @app.command(rich_help_panel="Commands :computer:")
-def run(file: str = typer.Argument(...,help=help_build, metavar=termcolor.colored("File", 'red'), show_default=False), ext_port: str = typer.Argument(..., help="External port web server will use", metavar=termcolor.colored("External_port", 'red'), show_default=False)):
+def run(file: str = typer.Argument(...,help=help_build, metavar=termcolor.colored("File", 'red'), show_default=False)):
     """
     Launches the Nginx server. :rocket:
     """
-
 # Error handling
-    check_ext_port(ext_port)
     file = error_conf_file(file)
 
 # Get in a list all parameters and well formatted
     with open(file, 'r') as f:
         data: list = f.readlines()
+    ext_port: str = data[external_port].split("=", 1)[1]
+    ext_port = ext_port.split("\n", 1)[0]
     docker_url: str = data[docker].split("=", 1)[1]
     docker_url = docker_url.split("\n", 1)[0]
 
