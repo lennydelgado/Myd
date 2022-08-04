@@ -20,6 +20,10 @@ FROM $REPO_DOCKER_URL/python$PYTHON_VERSION:latest AS python
 # Recovery of token github with build arg
 ARG GIT_TOKEN
 
+# Invalidate docker cache
+ARG CACHEBUST
+RUN echo '$CACHEBUST'
+
 # Recovery of github repository with build arg
 ARG GIT_REPO
 

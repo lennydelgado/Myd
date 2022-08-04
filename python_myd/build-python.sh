@@ -26,6 +26,10 @@ export REPO_DOCKER_URL=$2
 # Take the latest version of debian-bulleye-slim
 docker pull ${REPO_DOCKER_URL}/debian_slim_myd:latest
 
+# Deleting of previously generated images
+docker image rm ${REPO_DOCKER_URL}/python${PYTHON_VERSION}:latest 2>&1 $PWD/logs/python_build_log.txt
+docker image rm python${PYTHON_VERSION}:latest 2>&1 $PWD/logs/python_build_log.txt
+
 # Image build and push it on your repository
 docker image build --build-arg PYTHON_VERSION="$PYTHON_VERSION" --build-arg REPO_DOCKER_URL="$REPO_DOCKER_URL" -f $PWD/python_myd/python${PYTHON_VERSION}.dockerfile -t python${PYTHON_VERSION}:latest .
 docker tag python${PYTHON_VERSION}:latest ${REPO_DOCKER_URL}/python${PYTHON_VERSION}:latest

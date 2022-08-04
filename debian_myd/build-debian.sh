@@ -22,6 +22,10 @@ export REPO_DOCKER_URL=$1
 # Take the latest version of debian-bulleye-slim
 docker pull debian:bullseye-slim
 
+# Deleting of previously generated images
+docker image rm ${REPO_DOCKER_URL}/debian_myd:latest 2>&1 $PWD/logs/debian_build_log.txt
+docker image rm debian_myd:latest 2>&1 $PWD/logs/debian_build_log.txt
+
 # Image build and push it on your repository
 docker image build -f $PWD/debian_myd/debian_myd.dockerfile --build-arg CACHEBUST=$(date +%s) -t debian_myd:latest .
 docker tag  debian_myd:latest ${REPO_DOCKER_URL}/debian_myd:latest

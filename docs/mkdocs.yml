@@ -1,0 +1,61 @@
+#################################################################################
+# Nom du fichier : myddocs.yml
+#
+# Créé le       : 03/05/2022 11:25:28
+# Créé par      : [Lenny Delgado]
+# -------------------------------------------------------------------------------------
+# Description   : Configuration file for myd docs
+#
+# -------------------------------------------------------------------------------------
+# Historique
+#
+#  20220605 [LD]  : Les premiers pas ...
+#
+#################################################################################
+
+site_name: Myd docs
+site_url: https://myd-docs.com/
+theme:
+  name: material
+  locale: fr
+  custom_dir: overrides
+  highlightjs: true
+  features:
+  - search.suggest
+  - search.highlight
+  - content.tabs.link
+  language: fr
+  palette:
+    scheme: default
+    primary: green
+repo_name: lennydelgado/Myd-project
+repo_url: https://github.com/lennydelgado/Myd-source
+plugins:
+- search
+nav:
+- Accueil: index.md
+- Installation: 01-Myd-Project/install-myd-project.md
+- Mise en place MkDocs: 01-Myd-Project/create-mkdocs-website.md
+- Utilisation : 01-Myd-Project/how-to-use-myd-project.md
+- Mise en ligne sur GitHub Page : 01-Myd-Project/install-on-github-pages.md
+markdown_extensions:
+- toc:
+    permalink: true
+- markdown.extensions.codehilite:
+    guess_lang: false
+- admonition
+- codehilite
+- extra
+- pymdownx.superfences:
+    custom_fences:
+    - name: mermaid
+      class: mermaid
+      format: !!python/name:pymdownx.superfences.fence_code_format ''
+- pymdownx.tabbed
+- smarty
+extra_css:
+- css/termynal.css
+- css/custom.css
+extra_javascript:
+- js/termynal.js
+- js/custom.js

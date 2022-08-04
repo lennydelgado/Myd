@@ -41,7 +41,11 @@ export DIR_NAME="$GIT_PROJ_NAME-$(echo "$GIT_ZIP_NAME" | cut -d'.' -f1)"
 # Take the latest version of previsous image with python
 docker pull ${REPO_DOCKER_URL}/python${PYTHON_VERSION}:latest
 
+# # Deleting of previously generated images
+# docker image rm ${REPO_DOCKER_URL}/myd-docs:latest 2>&1 $PWD/logs/nginx_build_log.txt
+# docker image rm myd-docs:latest 2>&1 $PWD/logs/nginx_build_log.txt
+
 # Build image with nginx
-docker image build --build-arg REPO_DOCKER_URL --build-arg GIT_TOKEN --build-arg DIR_NAME --build-arg GIT_REPO --build-arg GIT_ZIP_NAME --build-arg PYTHON_VERSION -f $PWD/nginx/myd-docs.dockerfile -t myd-docs:latest .
+docker image build --build-arg CACHEBUST=$(date +%s) --build-arg REPO_DOCKER_URL --build-arg GIT_TOKEN --build-arg DIR_NAME --build-arg GIT_REPO --build-arg GIT_ZIP_NAME --build-arg PYTHON_VERSION -f $PWD/nginx/myd-docs.dockerfile -t myd-docs:latest .
 docker tag myd-docs:latest ${REPO_DOCKER_URL}/myd-docs:latest
 docker push ${REPO_DOCKER_URL}/myd-docs:latest

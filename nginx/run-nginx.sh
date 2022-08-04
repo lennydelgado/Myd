@@ -26,7 +26,7 @@ export NGINX_PORT_EXTERNE=$2
 export NGINX_PORT=80
 
 # Delete containers if they already exist
-docker rm -f nginx-myd
+docker rm -f nginx-myd 2>&1 $PWD/logs/nginx_run_log.txt
 
 # Up date if needed
 docker pull ${REPO_DOCKER_URL}/myd-docs:latest
