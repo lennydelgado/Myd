@@ -349,8 +349,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../install-on-github-page/" class="md-nav__link">
-        Github Page
+      <a href="../install-on-github-pages/" class="md-nav__link">
+        Mise en ligne sur GitHub Page
       </a>
     </li>
   
@@ -445,7 +445,7 @@
 <p>Maintenant, que vous avez vu comment installer le projet, nous allons voir ensemble comment l&rsquo;utiliser et ceci étapes par étapes.</p>
 <div class="admonition warning">
 <p class="admonition-title">Attention</p>
-<p>Avant de passer à la prochaine étape assurez de bien avoir installé les <a href="../install-myd-project/">prérequis</a> ainsi que d&rsquo;avoir crée votre <a href="mkdocs-website.md">premier</a> site avec <a class="internal-link" href="https://www.mkdocs.org/" target="_blank">MkDocs</a>.</p>
+<p>Avant de passer à la prochaine étape assurez de bien avoir installé les <a href="../install-myd-project/">prérequis</a> ainsi que d&rsquo;avoir créé votre <a href="mkdocs-website.md">premier</a> site avec <a class="internal-link" href="https://www.mkdocs.org/" target="_blank">MkDocs</a>.</p>
 </div>
 <h2 id="comment-on-se-sert-du-projet">Comment on se sert du projet ?<a class="headerlink" href="#comment-on-se-sert-du-projet" title="Permanent link">&para;</a></h2>
 <h3 id="preparation">Préparation<a class="headerlink" href="#preparation" title="Permanent link">&para;</a></h3>
@@ -498,9 +498,9 @@
 <p>Pour pouvoir utiliser <strong>Myd</strong>, il vous faudra au préalable générer le fichier de configuration.</p>
 <div class="admonition warning">
 <p class="admonition-title">Attention</p>
-<p>Le fichier de configuration est formaté de manière que <strong>Myd</strong> puisse comprendre les différentes informations nécessaires au bon fonctionnement. Vous ne pouvez pas changer l&rsquo;ordre des lignes ou ajouter des commentaires.</p>
+<p>Le fichier de configuration est formaté de manière que <strong>Myd</strong> puisse comprendre les différentes informations nécessaires à son bon fonctionnement. Vous ne pouvez pas changer l&rsquo;ordre des lignes ou ajouter des commentaires.</p>
 </div>
-<p>Pour générer le fichier de configuration dans le bon format que <strong>Myd</strong> à , il suffit d&rsquo;utiliser la commande <code>config</code>.</p>
+<p>Pour générer le fichier de configuration dans le bon format que <strong>Myd</strong> à besoins, il suffit d&rsquo;utiliser la commande <code>config</code>.</p>
 <p>Regardons comment la commande fonctionne :</p>
 <div class="termy">
 <div class="highlight"><pre><span></span><code><span class="gp">$ </span><span class="o">(</span>env-myd<span class="o">)</span> python myd.py config --help
@@ -517,7 +517,7 @@
 <BR>
 </div>
 
-<p>On peux désormais crée notre premier fichier de configuration.</p>
+<p>On peut désormais crée notre premier fichier de configuration.</p>
 <div class="termy">
 <div class="highlight"><pre><span></span><code><span class="gp">$ </span><span class="o">(</span>env-myd<span class="o">)</span> python myd.py config
 
@@ -533,11 +533,11 @@
 
 <span class="gp">$ </span><span class="o">(</span>env-myd<span class="o">)</span> <span class="m">3</span>.10.4
 
-<span class="go">&lt;span style=&quot;color: lime;&quot;&gt;Input Github Token:&lt;/span&gt;</span>
+<span class="go">&lt;span style=&quot;color: lime;&quot;&gt;Input GitHub Token:&lt;/span&gt;</span>
 
-<span class="gp">$ </span><span class="o">(</span>env-myd<span class="o">)</span> votre_token_github
+<span class="gp">$ </span><span class="o">(</span>env-myd<span class="o">)</span> votre_token_GitHub
 
-<span class="go">&lt;span style=&quot;color: lime;&quot;&gt;Input Github Repository:&lt;/span&gt;</span>
+<span class="go">&lt;span style=&quot;color: lime;&quot;&gt;Input GitHub Repository:&lt;/span&gt;</span>
 
 <span class="gp">$ </span><span class="o">(</span>env-myd<span class="o">)</span> https://github.com/votre-nom-d<span class="err">&#39;</span>utilisateur/nom-du-repo/archive/nom-de-la-branche.zip
 
@@ -560,7 +560,7 @@ EXT_PORT=8989
 </code></pre></div>
 <div class="admonition warning">
 <p class="admonition-title">Attention</p>
-<p>L&rsquo;URL du répertoire Github doit être formaté comme ci-dessus, vous ne pouvez pas simplement faire un copié de l&rsquo;URL. Il ne faut également pas de <em>/</em> à la fin de votre URL Docker.</p>
+<p>L&rsquo;URL du répertoire <strong>GitHub</strong> doit être formaté comme ci-dessus, vous ne pouvez pas simplement faire un copié de l&rsquo;URL. Il ne faut également pas de <em>/</em> à la fin de votre URL Docker.</p>
 </div>
 <h3 id="mise-en-place-des-containers">Mise en place des containers<a class="headerlink" href="#mise-en-place-des-containers" title="Permanent link">&para;</a></h3>
 <p>Pour pouvoir faire fonctionner notre serveur web <a class="internal-link" href="https://www.nginx.com/" target="_blank">Nginx</a>, il faut au préalable établir le container dans lequel on retrouveras notre site web généré par <a class="internal-link" href="https://www.mkdocs.org/" target="_blank">MkDocs</a>.</p>
@@ -589,8 +589,12 @@ EXT_PORT=8989
 <p>Avant de continuer regardons à quoi sert l&rsquo;argument <code>option</code>. <strong>Myd</strong> a besoin de créer différents containers pour établir le serveur web final.</p>
 <p>On crée tout d&rsquo;abord un container <a class="internal-link" href="https://www.docker.Lcom/" target="_blank">Docker</a> avec un image <strong>Debian bulleye slim</strong> qui est l&rsquo;environnement <strong>Linux</strong> dans lequel notre serveur web va être déployés. </p>
 <p>Ensuite, on crée notre propre container <strong>Python</strong> depuis l&rsquo;image <strong>Debian</strong> où on installe donc <strong>Python</strong>.</p>
-<p>Enfin, on crée le container <a class="internal-link" href="https://www.nginx.com/" target="_blank">Nginx</a> en y ajoutant les pages de notre site web récupéré depuis le lien du répertoire Github présent dans le fichier de configuration.</p>
-<p>Par défaut l&rsquo;argument <code>option</code> est égal à <code>all</code> ce qui signifie que tous les containers vont être recréé. Cependant, on n&rsquo;a pas toujours besoin de reconstruire tous les containers, c&rsquo;est pour ça que <code>option</code> permet de construire spécifiquement le container choisis.</p>
+<p>Enfin, on crée le container <a class="internal-link" href="https://www.nginx.com/" target="_blank">Nginx</a> en y ajoutant les pages de notre site web récupéré depuis le lien du répertoire GitHub présent dans le fichier de configuration.</p>
+<p>Par défaut l&rsquo;argument <code>option</code> est égal à <code>all</code> ce qui signifie que tous les containers vont être recréé. Cependant, on n&rsquo;a pas toujours besoin de reconstruire tous les containers, c&rsquo;est pour ça qu&rsquo;<code>option</code> permet de construire spécifiquement le container choisis.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>La commande <code>build</code> peux prendre un long moment la première fois pour générer pas de panique tant que le chargement est en cour c&rsquo;est que les containers sont en train d&rsquo;être construit.</p>
+</div>
 <p>Pour notre premier lancement, nous allons effectuer la commande suivante :</p>
 <div class="termy">
 <div class="highlight"><pre><span></span><code><span class="gp">$ </span><span class="o">(</span>env-myd<span class="o">)</span> python myd.py build exemple.conf
@@ -611,9 +615,9 @@ EXT_PORT=8989
 
 <div class="admonition info">
 <p class="admonition-title">Info</p>
-<p>Si vous souhaitez voir ce qu&rsquo;a renvoyé chacun des containers, vous trouverez dans le dossier <code>logs</code> tout les fichiers <code>logs</code> des différents containers.</p>
+<p>Si vous souhaitez voir ce qu&rsquo;a renvoyé chacun des containers, vous trouverez dans le dossier <code>logs</code> tous les fichiers <code>logs</code> des différents containers.</p>
 </div>
-<p>Si vous voyez le message vous disant que tout a bien été construit, vous pouvez maintenant passer à la prochaine étape, si vous avez quelconque souci hésité pas à les informations de votre fichier de configuration ainsi que les fichiers <code>logs</code>.</p>
+<p>Si vous voyez le message vous disant que tout a bien été construit, vous pouvez maintenant passer à la prochaine étape, si vous avez quelconque souci hésité pas à lire les informations de votre fichier de configuration ainsi que les fichiers <code>logs</code>.</p>
 <h3 id="lancement-de-myd">Lancement de <strong>Myd</strong><a class="headerlink" href="#lancement-de-myd" title="Permanent link">&para;</a></h3>
 <p>Maintenant, vous êtes prêt pour le lancement de votre site hébergé par <a class="internal-link" href="https://www.nginx.com/" target="_blank">Nginx</a>. Regardons comment cela fonctionne :</p>
 <div class="termy">
@@ -649,7 +653,7 @@ EXT_PORT=8989
 
 <div class="admonition info">
 <p class="admonition-title">Info</p>
-<p>Il est possible que lorsque vous effectuez des modifications sur votre site sur <a class="internal-link" href="https://github.com/" target="_blank">Github</a> cela ne fonctionne pas, il faut supprimer les images <a class="internal-link" href="https://www.docker.com/" target="_blank">Docker</a> (<a class="internal-link" href="https://www.docker.com/" target="_blank">Docker</a> utilise un cache est votre site n&rsquo;est pas télécharger à nouveau depuis votre répertoire).</p>
+<p>Il est possible que lorsque vous effectuez des modifications sur votre site sur <a class="internal-link" href="https://github.com/" target="_blank">GitHub</a> cela ne fonctionne pas, il faut supprimer les images <a class="internal-link" href="https://www.docker.com/" target="_blank">Docker</a> (<a class="internal-link" href="https://www.docker.com/" target="_blank">Docker</a> utilise un cache est votre site n&rsquo;est pas télécharger à nouveau depuis votre répertoire).</p>
 </div>
 <p>Si tout, c&rsquo;est bien passé, vous devriez pouvoir accéder à votre page web, avant cela assurer vous d&rsquo;avoir fait la redirection de port.</p>
 <p>Pour le faire, vous devrez vous rendre dans <a class="internal-link" href="https://code.visualstudio.com/" target="_blank">Visual Studio Code</a>. Puis ouvrez un terminal en cliquant ici :</p>
@@ -664,7 +668,7 @@ Pour l&rsquo;exemple lors de la configuration, j&rsquo;ai choisi le port <code>8
 <p class="admonition-title">Remerciment</p>
 <p>Je vous remercie d&rsquo;avoir lu jusqu&rsquo;ici, j&rsquo;espère avoir été claire dans mes explications.</p>
 </div>
-<p>Vous souhaitez mettre votre site sur <a class="internal-link" href="https://github.com/" target="_blank">Github Page</a>, pour ce faire rendez-vous <a href="../install-on-github-page/">ici</a></p>
+<p>Vous souhaitez mettre votre site sur <a class="internal-link" href="https://github.com/" target="_blank">GitHub Pages</a>, pour ce faire rendez-vous <a href="../install-on-github-pages/">ici</a></p>
 
               
             </article>
@@ -694,13 +698,13 @@ Pour l&rsquo;exemple lors de la configuration, j&rsquo;ai choisi le port <code>8
       
       
         
-        <a href="../install-on-github-page/" class="md-footer__link md-footer__link--next" aria-label="Suivant: Github Page" rel="next">
+        <a href="../install-on-github-pages/" class="md-footer__link md-footer__link--next" aria-label="Suivant: Mise en ligne sur GitHub Page" rel="next">
           <div class="md-footer__title">
             <div class="md-ellipsis">
               <span class="md-footer__direction">
                 Suivant
               </span>
-              Github Page
+              Mise en ligne sur GitHub Page
             </div>
           </div>
           <div class="md-footer__button md-icon">

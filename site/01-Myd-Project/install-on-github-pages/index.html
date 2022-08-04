@@ -8,14 +8,14 @@
       
       
       
-        <link rel="canonical" href="https://myd-docs.com/01-Myd-Project/install-on-github-page/">
+        <link rel="canonical" href="https://myd-docs.com/01-Myd-Project/install-on-github-pages/">
       
       <link rel="icon" href="../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-8.2.5">
     
     
       
-        <title>Github Page - Myd docs</title>
+        <title>Mise en ligne sur GitHub Page - Myd docs</title>
       
     
     
@@ -102,7 +102,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Github Page
+              Mise en ligne sur GitHub Page
             
           </span>
         </div>
@@ -283,9 +283,47 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Mise en ligne sur GitHub Page
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
-        Github Page
+        Mise en ligne sur GitHub Page
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table des matières">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table des matières
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#recuperation-du-site" class="md-nav__link">
+    Récupération du site
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mise-en-ligne-sur-github-pages" class="md-nav__link">
+    Mise en ligne sur GitHub Pages
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -311,6 +349,28 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table des matières
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#recuperation-du-site" class="md-nav__link">
+    Récupération du site
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mise-en-ligne-sur-github-pages" class="md-nav__link">
+    Mise en ligne sur GitHub Pages
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -321,14 +381,39 @@
             <article class="md-content__inner md-typeset">
               
                 
-<a href="https://github.com/lennydelgado/Myd-source/edit/master/docs/01-Myd-Project/install-on-github-page.md" title="Editer cette page" class="md-content__button md-icon">
+<a href="https://github.com/lennydelgado/Myd-source/edit/master/docs/01-Myd-Project/install-on-github-pages.md" title="Editer cette page" class="md-content__button md-icon">
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
 </a>
 
 
 
 <h1 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">&para;</a></h1>
-<p>Pour pouvoir mettre votre site </p>
+<p>Pour pouvoir mettre votre site sur <a class="internal-link" href="https://docs.github.com/en/pages/getting-started-with-github-pages/about-github-pages" target="_blank">GitHub Pages</a> vous aurez besoin d&rsquo;avoir crée un compte <a class="internal-link" href="https://github.com/" target="_blank">GitHub</a> ainsi que crée votre répertoire qui va contenir votre documentation.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Pour pouvoir utiliser <a class="internal-link" href="https://docs.github.com/en/pages/getting-started-with-GitHub-pages/about-GitHub-pages" target="_blank">GitHub Pages</a> de manière gratuite il vous faudra <strong>obligatoirement</strong> un répertoire <a class="internal-link" href="https://github.com/" target="_blank">GitHub</a> <strong>public</strong>. Pour mettre votre site en privée il vous faudra avoir un abonnement sur <a class="internal-link" href="https://github.com/" target="_blank">GitHub</a> pour plus d&rsquo;information rendez-vous <a class="internal-link" href="https://docs.github.com/en/pages/getting-started-with-github-pages/about-github-pages" target="_blank">ici</a>.</p>
+</div>
+<h2 id="recuperation-du-site">Récupération du site<a class="headerlink" href="#recuperation-du-site" title="Permanent link">&para;</a></h2>
+<p>Dans un premier temps, vous devrez récupérer les pages <code>HTML</code> de votre site elles ont été générées dans le container <a class="internal-link" href="https://www.nginx.com/" target="_blank">Nginx</a> lors de la du <code>build</code> du programme.</p>
+<p>Assurez-vous d&rsquo;être dans le répertoire que vous souhaitez utilisé, puis taper la commande suivante :</p>
+<div class="termy">
+<div class="highlight"><pre><span></span><code><span class="gp">$ </span>docker cp nginx-myd:/usr/share/nginx/html .
+
+<span class="go">---&gt; 100%</span>
+
+<span class="go">Copie terminer</span>
+</code></pre></div>
+</div>
+
+<p>Vous devriez à présent avoir un dossier nommé <code>html</code>, vous pouvez à présent le renommé <code>docs</code>. Enfin, ajouter le à votre répertoire <a class="internal-link" href="https://github.com/" target="_blank">GitHub</a>.</p>
+<h2 id="mise-en-ligne-sur-github-pages">Mise en ligne sur GitHub Pages<a class="headerlink" href="#mise-en-ligne-sur-github-pages" title="Permanent link">&para;</a></h2>
+<p>Afin de mettre votre site sur <a class="internal-link" href="https://docs.github.com/en/pages/getting-started-with-github-pages/about-github-pages" target="_blank">GitHub Pages</a> rendez-vous sur la page internet de votre répertoire puis dans <em>settings</em> puis dans <em>pages</em> comme ci-dessous.</p>
+<p><img alt="1_github.png" src="../../img/1_github.png" title="GitHub Pages" /></p>
+<p>Par la suite vous choisissez la <em>branch</em> qui contient le dossier avec les fichiers de votre site.</p>
+<p><img alt="2_github.png" src="../../img/2_github.png" title="GitHub Pages" /></p>
+<p>Enfin sélectionner le dossier précis du répertoire de votre site récupérer plus tôt.</p>
+<p><img alt="3_github.png" src="../../img/3_github.png" title="GitHub Pages" /></p>
+<p>Vous pouvez sauvgardé, pour maintenir le site à jour lors de modification vous aurez à modifier la documentation de votre site <a class="internal-link" href="https://www.mkdocs.org/" target="_blank">MkDocs</a>, puis à refaire les étapes à partir de la <a class="internal-link" href="../how-to-use-myd-project/" target="_blank">construction des containers</a>.</p>
 
               
             </article>

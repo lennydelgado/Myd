@@ -277,13 +277,6 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#installation-des-dependances" class="md-nav__link">
-    Installation des dépendances
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
   
@@ -293,6 +286,19 @@
   <a href="#recuperation-du-projet" class="md-nav__link">
     Récupération du projet
   </a>
+  
+    <nav class="md-nav" aria-label="Récupération du projet">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#installation-des-dependances" class="md-nav__link">
+    Installation des dépendances
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -342,8 +348,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../install-on-github-page/" class="md-nav__link">
-        Github Page
+      <a href="../install-on-github-pages/" class="md-nav__link">
+        Mise en ligne sur GitHub Page
       </a>
     </li>
   
@@ -390,13 +396,6 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#installation-des-dependances" class="md-nav__link">
-    Installation des dépendances
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
   
@@ -406,6 +405,19 @@
   <a href="#recuperation-du-projet" class="md-nav__link">
     Récupération du projet
   </a>
+  
+    <nav class="md-nav" aria-label="Récupération du projet">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#installation-des-dependances" class="md-nav__link">
+    Installation des dépendances
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -428,46 +440,37 @@
 
 
 <h1 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h1>
-<p>Aujourd&rsquo;hui, nous allons voir comment installer le projet et nous verrons dans un deuxième temps comment s&rsquo;en servir. Le projet principalement en <a class="internal-link" href="https://www.python.org/" target="_blank">Python</a> avec <a class="internal-link" href="https://typer.tiangolo.com/" target="_blank">Typer</a> qui est une librairie <a class="internal-link" href="https://www.python.org/" target="_blank">Python</a> qui permet d&rsquo;ajouter une interface au programme exécuter depuis un terminal.</p>
+<p>Aujourd&rsquo;hui, nous allons voir comment installer le projet et nous verrons dans un deuxième temps comment s&rsquo;en servir. Le projet principalement en <a class="internal-link" href="https://www.python.org/" target="_blank">Python</a> ainsi qu&rsquo;avec l&rsquo;outil <a class="internal-link" href="https://typer.tiangolo.com/" target="_blank">Typer</a> qui est une librairie <a class="internal-link" href="https://www.python.org/" target="_blank">Python</a> qui permet d&rsquo;ajouter une interface au programme exécuter depuis un terminal.</p>
 <h2 id="prerequis">Prérequis<a class="headerlink" href="#prerequis" title="Permanent link">&para;</a></h2>
-<p>Ce projet a été entièrement réalisé dans un environnement Linux Debian et il devrait être compatible avec tout les systèmes supportant Linux.</p>
+<p>Ce projet a été entièrement réalisé dans un environnement Linux Debian et il devrait être compatible avec tous les systèmes supportant Linux.</p>
 <p>Tout d&rsquo;abord, vous aurez besoin de <a class="internal-link" href="https://www.docker.com/" target="_blank">Docker</a> pour plus d&rsquo;informations concernant son installation allez voir la documentation <a class="internal-link" href="https://docs.docker.com/engine/install/" target="_blank">ici</a>.</p>
 <p>Vous aurez également de <a class="internal-link" href="https://www.python.org/" target="_blank">Python</a>, vous pouvez l&rsquo;installer en cliquant <a class="internal-link" href="https://www.python.org/downloads/" target="_blank">ici</a>. Il vous faudra également <a class="internal-link" href="https://pypi.org/project/pip/" target="_blank">Pip</a>, pour suivre les instructions d&rsquo;installation, je vous redirige <a class="internal-link" href="https://pip.pypa.io/en/stable/installation/" target="_blank">ici</a>.</p>
 <p>Enfin, vous aurez aussi besoin de <a class="internal-link" href="https://code.visualstudio.com/" target="_blank">Visual Studio Code</a>. Il vous permettra de faire de la <a class="internal-link" href="https://fr.wikipedia.org/wiki/Redirection_de_port" target="_blank">redirection de port</a>, de manière simple.</p>
 <h3 id="mise-en-place-environnement-virtuel-python">Mise en place environnement virtuel Python<a class="headerlink" href="#mise-en-place-environnement-virtuel-python" title="Permanent link">&para;</a></h3>
-<p>Nous allons voir ensembles comment mettre en place l&rsquo;environnement virtuel <a class="internal-link" href="https://www.python.org/" target="_blank">Python</a> qui nous servira à installer toutes les librairies nécessaire au bon fonctionnement du projet.</p>
-<p>Tapons la commande suivante: </p>
+<p>Nous allons voir ensemble comment mettre en place l&rsquo;environnement virtuel <a class="internal-link" href="https://www.python.org/" target="_blank">Python</a> qui nous servira à installer toutes les librairies nécessaires au bon fonctionnement du projet.</p>
+<p>Tapons la commande suivante : </p>
 <div class="termy">
 <div class="highlight"><pre><span></span><code><span class="gp">$ </span>python -m venv env-myd
 </code></pre></div>
 </div>
 
-<p>Cette commande à pour effet de vous crée le dossier dans lequel ce trouveras toutes les futurs librairies que nous installerons mais d&rsquo;abord il faut l&rsquo;activé, pour cela taper la commande suivante:</p>
+<p>Cette commande à pour effet de vous crée le dossier dans lequel ce trouveras toutes les futures librairies que nous installerons mais d&rsquo;abord il faut l’activer, pour cela taper la commande suivante :</p>
 <div class="termy">
 <div class="highlight"><pre><span></span><code><span class="gp">$ </span><span class="nb">source</span> aboslute-path-to-project/env-myd/bin/activate
 </code></pre></div>
 </div>
 
-<p>Si tout c&rsquo;est bien passé normalement votre terminal devrais affiché ceci:</p>
+<p>Si tout s’est bien passé normalement votre terminal devrais afficher ceci :</p>
 <div class="termy">
 <div class="highlight"><pre><span></span><code><span class="gp">$ </span><span class="o">(</span>env-myd<span class="o">)</span>
-<span class="go">&lt;span style=&quot;color: green;&quot;&gt;INFO&lt;/span&gt;:     -  Ici la parenthèse nous montre bien que cela à fonctionner</span>
+<span class="go">&lt;span style=&quot;color: green;&quot;&gt;INFO&lt;/span&gt;:     -  Ici la parenthèse nous montre que l&#39;environnement actif est &quot;env-myd&quot;</span>
 </code></pre></div>
 </div>
 
-<p>Vous pouvez à présent changer l&rsquo;interprêteur <a class="internal-link" href="https://www.python.org/" target="_blank">Python</a> sur <strong>Visual studio code</strong>.</p>
+<p>Vous pouvez à présent changer l’interpréteur <a class="internal-link" href="https://www.python.org/" target="_blank">Python</a> sur <strong>Visual studio code</strong>.</p>
 <p>Pour cela ouvrez <strong>Visual studio code</strong>, appuyez sur <code>Ctrl + Shift + P</code> puis tapez dans la barre de recherche <em>interpréteur</em>, ensuite ajoutez un nouveau chemin pour l&rsquo;interpréteur et entrez le chemin absolu du dossier de l&rsquo;environnement virtuel.</p>
-<h3 id="installation-des-dependances">Installation des dépendances<a class="headerlink" href="#installation-des-dependances" title="Permanent link">&para;</a></h3>
-<p>Maintenant que vous avez installer et activez l&rsquo;environnement virtuel vous pouvez installer toutes les librairies nécessaires au fonctionnement du projet sans aucune crainte, il vous suffit d&rsquo;entrer la commande suivante :</p>
-<div class="termy">
-<div class="highlight"><pre><span></span><code><span class="gp">$ </span><span class="o">(</span>env-myd<span class="o">)</span> pip install -r requirement.txt
-
-<span class="go">&lt;span style=&quot;color: green;&quot;&gt;INFO&lt;/span&gt;:     -  Installation des dépendances</span>
-</code></pre></div>
-</div>
-
 <h2 id="recuperation-du-projet">Récupération du projet<a class="headerlink" href="#recuperation-du-projet" title="Permanent link">&para;</a></h2>
-<p>Nous vous donnons ci-dessous la commande à effectuer pour cloner le répertoire <a class="internal-link" href="https://github.com/lennydelgado/Myd-project" target="_blank">Github</a>, pour cela taper la commande suivante :</p>
+<p>Nous vous donnons ci-dessous la commande à effectuer pour cloner le répertoire <a class="internal-link" href="https://github.com/lennydelgado/Myd-project" target="_blank">GitHub</a>, pour cela taper la commande suivante :</p>
 <div class="termy">
 <div class="highlight"><pre><span></span><code><span class="gp">$ </span>git clone git@github.com:lennydelgado/Myd.git
 
@@ -502,7 +505,16 @@
 <span class="go">|</span>
 <span class="go">└── myd.py</span>
 </code></pre></div>
-<p>Maintenant, que le projet est installé, on peut voir comment s&rsquo;en servir en cliquant <a href="../how-to-use-myd-project/">ici</a>.</p>
+<h3 id="installation-des-dependances">Installation des dépendances<a class="headerlink" href="#installation-des-dependances" title="Permanent link">&para;</a></h3>
+<p>Maintenant que vous avez installé et activez l&rsquo;environnement virtuel et récupérer le projet vous pouvez installer toutes les librairies nécessaires au fonctionnement du projet sans aucune crainte, il vous suffit d&rsquo;entrer la commande suivante :</p>
+<div class="termy">
+<div class="highlight"><pre><span></span><code><span class="gp">$ </span><span class="o">(</span>env-myd<span class="o">)</span> pip install -r requirement.txt
+
+<span class="go">&lt;span style=&quot;color: green;&quot;&gt;INFO&lt;/span&gt;:     -  Installation des dépendances</span>
+</code></pre></div>
+</div>
+
+<p>Maintenant, que le projet est installé avec ses dépendances, on peut voir comment s&rsquo;en servir en cliquant <a href="../how-to-use-myd-project/">ici</a>.</p>
 
               
             </article>

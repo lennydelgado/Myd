@@ -1,0 +1,9 @@
+----------------------------------NGINX LOG----------------------------------
+
+nginx-myd
+Error: No such container: home/ldelgado/Delivery/Myd-all/Myd/logs/nginx_run_log.txt
+latest: Pulling from stagelenny/myd-docs
+Digest: sha256:192e55c7f2f9c16b065791cee98123f188b3fa6ca6432d6a96df09d6fcd2b103
+Status: Image is up to date for cb780901.gra7.container-registry.ovh.net/stagelenny/myd-docs:latest
+cb780901.gra7.container-registry.ovh.net/stagelenny/myd-docs:latest
+db77d18c22340bee2de13525ac37d9a83c948135da1af0d182c7f967e861381f

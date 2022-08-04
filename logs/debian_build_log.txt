@@ -1,0 +1,143 @@
+----------------------------------DEBIAN LOG----------------------------------
+
+bullseye-slim: Pulling from library/debian
+Digest: sha256:a811e62769a642241b168ac34f615fb02da863307a14c4432cea8e5a0f9782b8
+Status: Image is up to date for debian:bullseye-slim
+docker.io/library/debian:bullseye-slim
+Untagged: cb780901.gra7.container-registry.ovh.net/stagelenny/debian_myd:latest
+Untagged: cb780901.gra7.container-registry.ovh.net/stagelenny/debian_myd@sha256:52c063a46ece2925e2225ccd8b41da3de4ce076dd2ce7a960e6aefcb3ae6ca74
+Error response from daemon: invalid reference format: repository name must be lowercase
+Untagged: debian_myd:latest
+Deleted: sha256:b96ce858c711f2c7c09df587f0d9243834f41de64d567ea1176365872354903e
+Deleted: sha256:984e429b90d966d8b50533746b08e916e01e78315177657e8b5aca99d69836ec
+Deleted: sha256:7078bf12107e712f76c0aab04e2d6cc1abf0cc8cfd5a5df06f59adbb5a58f48f
+Deleted: sha256:0f8f05bc8edb9cccf9433c00a965e09606ab9fa9d4d85c31a8398b4b6527e8df
+Deleted: sha256:4c2cfe77465c737254ba2ad90ba4f0ae823270c5b860bd78a04d921aef222f36
+Deleted: sha256:50f2dbc92f7f62cdc94495c6ce399e85c8a5303cfc1c22e91539b6cc97942ab2
+Deleted: sha256:c34a751411916f06df2d646957cf4d5d6a18c0a7327e448c288d084a950d6b66
+Deleted: sha256:048388658b8ad0179ca1bcbf7d65bc332a42735482cc52f46845333e9393b4a2
+Error response from daemon: invalid reference format: repository name must be lowercase
+Sending build context to Docker daemon  74.29MB
+Step 1/7 : FROM debian:bullseye-slim
+ ---> 6a8065e4ba13
+Step 2/7 : ARG CACHEBUST
+ ---> Running in d66444ee0ea0
+Removing intermediate container d66444ee0ea0
+ ---> 1e089b163f5e
+Step 3/7 : RUN echo '$CACHEBUST'
+ ---> Running in f4f0fb8ed1f7
+$CACHEBUST
+Removing intermediate container f4f0fb8ed1f7
+ ---> 874ce02275b7
+Step 4/7 : RUN  apt-get update;      apt-get -y upgrade;      apt-get install -y zip unzip;      apt-get install -y wget
+ ---> Running in bee3a540bf6d
+Get:1 http://deb.debian.org/debian bullseye InRelease [116 kB]
+Get:2 http://deb.debian.org/debian-security bullseye-security InRelease [48.4 kB]
+Get:3 http://deb.debian.org/debian bullseye-updates InRelease [44.1 kB]
+Get:4 http://deb.debian.org/debian bullseye/main amd64 Packages [8182 kB]
+Get:5 http://deb.debian.org/debian-security bullseye-security/main amd64 Packages [170 kB]
+Get:6 http://deb.debian.org/debian bullseye-updates/main amd64 Packages [2592 B]
+Fetched 8563 kB in 2s (4599 kB/s)
+Reading package lists...
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Calculating upgrade...
+0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following NEW packages will be installed:
+  unzip zip
+0 upgraded, 2 newly installed, 0 to remove and 0 not upgraded.
+Need to get 403 kB of archives.
+After this operation, 1032 kB of additional disk space will be used.
+Get:1 http://deb.debian.org/debian bullseye/main amd64 unzip amd64 6.0-26 [171 kB]
+Get:2 http://deb.debian.org/debian bullseye/main amd64 zip amd64 3.0-12 [232 kB]
+[91mdebconf: delaying package configuration, since apt-utils is not installed
+[0mFetched 403 kB in 0s (6990 kB/s)
+Selecting previously unselected package unzip.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 6661 files and directories currently installed.)
+Preparing to unpack .../unzip_6.0-26_amd64.deb ...
+Unpacking unzip (6.0-26) ...
+Selecting previously unselected package zip.
+Preparing to unpack .../archives/zip_3.0-12_amd64.deb ...
+Unpacking zip (3.0-12) ...
+Setting up unzip (6.0-26) ...
+Setting up zip (3.0-12) ...
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following additional packages will be installed:
+  ca-certificates libpsl5 openssl publicsuffix
+The following NEW packages will be installed:
+  ca-certificates libpsl5 openssl publicsuffix wget
+0 upgraded, 5 newly installed, 0 to remove and 0 not upgraded.
+Need to get 2158 kB of archives.
+After this operation, 5887 kB of additional disk space will be used.
+Get:1 http://deb.debian.org/debian bullseye/main amd64 openssl amd64 1.1.1n-0+deb11u3 [853 kB]
+Get:2 http://deb.debian.org/debian bullseye/main amd64 ca-certificates all 20210119 [158 kB]
+Get:3 http://deb.debian.org/debian bullseye/main amd64 libpsl5 amd64 0.21.0-1.2 [57.3 kB]
+Get:4 http://deb.debian.org/debian bullseye/main amd64 wget amd64 1.21-1+deb11u1 [964 kB]
+Get:5 http://deb.debian.org/debian bullseye/main amd64 publicsuffix all 20211207.1025-0+deb11u1 [125 kB]
+[91mdebconf: delaying package configuration, since apt-utils is not installed
+[0mFetched 2158 kB in 0s (22.3 MB/s)
+Selecting previously unselected package openssl.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 6694 files and directories currently installed.)
+Preparing to unpack .../openssl_1.1.1n-0+deb11u3_amd64.deb ...
+Unpacking openssl (1.1.1n-0+deb11u3) ...
+Selecting previously unselected package ca-certificates.
+Preparing to unpack .../ca-certificates_20210119_all.deb ...
+Unpacking ca-certificates (20210119) ...
+Selecting previously unselected package libpsl5:amd64.
+Preparing to unpack .../libpsl5_0.21.0-1.2_amd64.deb ...
+Unpacking libpsl5:amd64 (0.21.0-1.2) ...
+Selecting previously unselected package wget.
+Preparing to unpack .../wget_1.21-1+deb11u1_amd64.deb ...
+Unpacking wget (1.21-1+deb11u1) ...
+Selecting previously unselected package publicsuffix.
+Preparing to unpack .../publicsuffix_20211207.1025-0+deb11u1_all.deb ...
+Unpacking publicsuffix (20211207.1025-0+deb11u1) ...
+Setting up libpsl5:amd64 (0.21.0-1.2) ...
+Setting up wget (1.21-1+deb11u1) ...
+Setting up openssl (1.1.1n-0+deb11u3) ...
+Setting up publicsuffix (20211207.1025-0+deb11u1) ...
+Setting up ca-certificates (20210119) ...
+debconf: unable to initialize frontend: Dialog
+debconf: (TERM is not set, so the dialog frontend is not usable.)
+debconf: falling back to frontend: Readline
+debconf: unable to initialize frontend: Readline
+debconf: (Can't locate Term/ReadLine.pm in @INC (you may need to install the Term::ReadLine module) (@INC contains: /etc/perl /usr/local/lib/x86_64-linux-gnu/perl/5.32.1 /usr/local/share/perl/5.32.1 /usr/lib/x86_64-linux-gnu/perl5/5.32 /usr/share/perl5 /usr/lib/x86_64-linux-gnu/perl-base /usr/lib/x86_64-linux-gnu/perl/5.32 /usr/share/perl/5.32 /usr/local/lib/site_perl) at /usr/share/perl5/Debconf/FrontEnd/Readline.pm line 7.)
+debconf: falling back to frontend: Teletype
+Updating certificates in /etc/ssl/certs...
+129 added, 0 removed; done.
+Processing triggers for libc-bin (2.31-13+deb11u3) ...
+Processing triggers for ca-certificates (20210119) ...
+Updating certificates in /etc/ssl/certs...
+0 added, 0 removed; done.
+Running hooks in /etc/ca-certificates/update.d...
+done.
+Removing intermediate container bee3a540bf6d
+ ---> 2f5a6ca18cf0
+Step 5/7 : ENV TZ=Europe/Paris
+ ---> Running in 52fdfa61c4f8
+Removing intermediate container 52fdfa61c4f8
+ ---> 641805caa976
+Step 6/7 : RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+ ---> Running in b3e0d24f3703
+Removing intermediate container b3e0d24f3703
+ ---> 4f1362927444
+Step 7/7 : CMD ["sleep", "1000000000"]
+ ---> Running in ac89851a8a07
+Removing intermediate container ac89851a8a07
+ ---> 9e26a714bfa0
+Successfully built 9e26a714bfa0
+Successfully tagged debian_myd:latest
+The push refers to repository [cb780901.gra7.container-registry.ovh.net/stagelenny/debian_myd]
+8caa820a4887: Preparing
+fac4b6c5780f: Preparing
+92a4e8a3140f: Preparing
+92a4e8a3140f: Layer already exists
+8caa820a4887: Pushed
+fac4b6c5780f: Pushed
+latest: digest: sha256:61b43628275b8230fa5e29fdab50415e918843f4c16780a9ae8cc76d32b971f8 size: 948

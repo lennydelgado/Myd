@@ -1,0 +1,80 @@
+----------------------------------PYTHON LOG----------------------------------
+
+latest: Pulling from stagelenny/debian_slim_myd
+Digest: sha256:a20f7e8d9214a8881e2fe1a7531bd4bd0e828c9f31016291dee7771ca444fe4e
+Status: Image is up to date for cb780901.gra7.container-registry.ovh.net/stagelenny/debian_slim_myd:latest
+cb780901.gra7.container-registry.ovh.net/stagelenny/debian_slim_myd:latest
+Untagged: cb780901.gra7.container-registry.ovh.net/stagelenny/python3.10.4:latest
+Untagged: cb780901.gra7.container-registry.ovh.net/stagelenny/python3.10.4@sha256:a51eb4c685a89698ec8ce3c95ed85b11bcbfdd2d6352accf116b7f05f00d2e5b
+Error response from daemon: invalid reference format: repository name must be lowercase
+Untagged: python3.10.4:latest
+Error response from daemon: invalid reference format: repository name must be lowercase
+Sending build context to Docker daemon   74.3MB
+Step 1/17 : ARG REPO_DOCKER_URL
+Step 2/17 : FROM $REPO_DOCKER_URL/debian_slim_myd:latest
+ ---> 90c790c43b54
+Step 3/17 : ARG PYTHON_VERSION
+ ---> Using cache
+ ---> 359e8d47028c
+Step 4/17 : ARG MYD_PYTHON_VERSION=$PYTHON_VERSION
+ ---> Using cache
+ ---> cf58521197b9
+Step 5/17 : ENV PATH /usr/local/bin:$PATH
+ ---> Using cache
+ ---> 9ef5529d0b95
+Step 6/17 : ENV LANG C.UTF-8
+ ---> Using cache
+ ---> c652af573aaa
+Step 7/17 : RUN set -eux; 	apt-get update; 	apt-get install -y --no-install-recommends 		ca-certificates 		netbase 		tzdata 	; 	rm -rf /var/lib/apt/lists/*
+ ---> Using cache
+ ---> a2347c6ddd94
+Step 8/17 : ENV GPG_KEY A035C8C19219BA821ECEA86B64E628F8D684696D
+ ---> Using cache
+ ---> ebaac2143f48
+Step 9/17 : ENV PYTHON_VERSION=$MYD_PYTHON_VERSION
+ ---> Using cache
+ ---> e0f6e663d46a
+Step 10/17 : RUN set -eux; 		savedAptMark="$(apt-mark showmanual)"; 	apt-get update; 	apt-get install -y --no-install-recommends 		dpkg-dev 		gcc 		gnupg dirmngr 		libbluetooth-dev 		libbz2-dev 		libc6-dev 		libexpat1-dev 		libffi-dev 		libgdbm-dev 		liblzma-dev 		libncursesw5-dev 		libreadline-dev 		libsqlite3-dev 		libssl-dev 		make 		tk-dev 		uuid-dev 		xz-utils 		zlib1g-dev 	; 		wget -O python.tar.xz "https://www.python.org/ftp/python/${PYTHON_VERSION%%[a-z]*}/Python-$PYTHON_VERSION.tar.xz"; 	wget -O python.tar.xz.asc "https://www.python.org/ftp/python/${PYTHON_VERSION%%[a-z]*}/Python-$PYTHON_VERSION.tar.xz.asc"; 	GNUPGHOME="$(mktemp -d)"; export GNUPGHOME; 	gpg --batch --keyserver hkps://keys.openpgp.org --recv-keys "$GPG_KEY"; 	gpg --batch --verify python.tar.xz.asc python.tar.xz; 	command -v gpgconf > /dev/null && gpgconf --kill all || :; 	rm -rf "$GNUPGHOME" python.tar.xz.asc; 	mkdir -p /usr/src/python; 	tar --extract --directory /usr/src/python --strip-components=1 --file python.tar.xz; 	rm python.tar.xz; 		cd /usr/src/python; 	gnuArch="$(dpkg-architecture --query DEB_BUILD_GNU_TYPE)"; 	./configure 		--build="$gnuArch" 		--enable-loadable-sqlite-extensions 		--enable-optimizations 		--enable-option-checking=fatal 		--enable-shared 		--with-lto 		--with-system-expat 		--without-ensurepip 	; 	nproc="$(nproc)"; 	make -j "$nproc" 		LDFLAGS="-Wl,--strip-all" 	; 	make install; 		cd /; 	rm -rf /usr/src/python; 		find /usr/local -depth 		\( 			\( -type d -a \( -name test -o -name tests -o -name idle_test \) \) 			-o \( -type f -a \( -name '*.pyc' -o -name '*.pyo' -o -name 'libpython*.a' \) \) 		\) -exec rm -rf '{}' + 	; 		ldconfig; 		apt-mark auto '.*' > /dev/null; 	apt-mark manual $savedAptMark; 	find /usr/local -type f -executable -not \( -name '*tkinter*' \) -exec ldd '{}' ';' 		| awk '/=>/ { print $(NF-1) }' 		| sort -u 		| xargs -r dpkg-query --search 		| cut -d: -f1 		| sort -u 		| xargs -r apt-mark manual 	; 	apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false; 	rm -rf /var/lib/apt/lists/*; 		python3 --version
+ ---> Using cache
+ ---> 3ec569244340
+Step 11/17 : RUN set -eux; 	for src in idle3 pydoc3 python3 python3-config; do 		dst="$(echo "$src" | tr -d 3)"; 		[ -s "/usr/local/bin/$src" ]; 		[ ! -e "/usr/local/bin/$dst" ]; 		ln -svT "$src" "/usr/local/bin/$dst"; 	done
+ ---> Using cache
+ ---> 1434964f6586
+Step 12/17 : ENV PYTHON_PIP_VERSION 22.0.4
+ ---> Using cache
+ ---> 1a140651e256
+Step 13/17 : ENV PYTHON_SETUPTOOLS_VERSION 58.1.0
+ ---> Using cache
+ ---> 2f3eaaefd160
+Step 14/17 : ENV PYTHON_GET_PIP_URL https://github.com/pypa/get-pip/raw/38e54e5de07c66e875c11a1ebbdb938854625dd8/public/get-pip.py
+ ---> Using cache
+ ---> b8188304d4ae
+Step 15/17 : ENV PYTHON_GET_PIP_SHA256 e235c437e5c7d7524fbce3880ca39b917a73dc565e0c813465b7a7a329bb279a
+ ---> Using cache
+ ---> 4a5a97774e25
+Step 16/17 : RUN set -eux; 		savedAptMark="$(apt-mark showmanual)"; 	apt-get update; 	apt-get install -y --no-install-recommends wget; 		wget -O get-pip.py "$PYTHON_GET_PIP_URL"; 	echo "$PYTHON_GET_PIP_SHA256 *get-pip.py" | sha256sum -c -; 		apt-mark auto '.*' > /dev/null; 	[ -z "$savedAptMark" ] || apt-mark manual $savedAptMark > /dev/null; 	apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false; 	rm -rf /var/lib/apt/lists/*; 		export PYTHONDONTWRITEBYTECODE=1; 		python get-pip.py 		--disable-pip-version-check 		--no-cache-dir 		--no-compile 		"pip==$PYTHON_PIP_VERSION" 		"setuptools==$PYTHON_SETUPTOOLS_VERSION" 	; 	rm -f get-pip.py; 		pip --version
+ ---> Using cache
+ ---> 0071541e458d
+Step 17/17 : CMD ["sleep", "1000000000"]
+ ---> Using cache
+ ---> b53515b44a67
+Successfully built b53515b44a67
+Successfully tagged python3.10.4:latest
+The push refers to repository [cb780901.gra7.container-registry.ovh.net/stagelenny/python3.10.4]
+7cde293e5ce8: Preparing
+0d7903fe1530: Preparing
+3cf4c4c451e9: Preparing
+46ddb3831bdd: Preparing
+854452caa7a8: Preparing
+9e3f2a2a07e7: Preparing
+08249ce7456a: Preparing
+9e3f2a2a07e7: Waiting
+08249ce7456a: Waiting
+46ddb3831bdd: Layer already exists
+0d7903fe1530: Layer already exists
+7cde293e5ce8: Layer already exists
+3cf4c4c451e9: Layer already exists
+854452caa7a8: Layer already exists
+9e3f2a2a07e7: Layer already exists
+08249ce7456a: Layer already exists
+latest: digest: sha256:a51eb4c685a89698ec8ce3c95ed85b11bcbfdd2d6352accf116b7f05f00d2e5b size: 1788
