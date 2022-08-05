@@ -28,8 +28,8 @@ theme:
   palette:
     scheme: default
     primary: green
-repo_name: lennydelgado/Myd-project
-repo_url: https://github.com/lennydelgado/Myd-source
+repo_name: lennydelgado/Myd
+repo_url: https://github.com/lennydelgado/Myd
 plugins:
 - search
 nav:

@@ -1,7 +1,5 @@
 # Installation
 
-Aujourd'hui, nous allons voir comment installer le projet et nous verrons dans un deuxième temps comment s'en servir. Le projet principalement en [Python](https://www.python.org/){.internal-link target=_blank} ainsi qu'avec l'outil [Typer](https://typer.tiangolo.com/){.internal-link target=_blank} qui est une librairie [Python](https://www.python.org/){.internal-link target=_blank} qui permet d'ajouter une interface au programme exécuter depuis un terminal.
-
 ## Prérequis
 
 Ce projet a été entièrement réalisé dans un environnement Linux Debian et il devrait être compatible avec tous les systèmes supportant Linux.
@@ -12,7 +10,7 @@ Vous aurez également de [Python](https://www.python.org/){.internal-link target
 
 Enfin, vous aurez aussi besoin de [Visual Studio Code](https://code.visualstudio.com/){.internal-link target=_blank}. Il vous permettra de faire de la [redirection de port](https://fr.wikipedia.org/wiki/Redirection_de_port){.internal-link target=_blank}, de manière simple.
 
-### Mise en place environnement virtuel Python
+## Mise en place environnement virtuel Python
 
 Nous allons voir ensemble comment mettre en place l'environnement virtuel [Python](https://www.python.org/){.internal-link target=_blank} qui nous servira à installer toutes les librairies nécessaires au bon fonctionnement du projet.
 
@@ -87,7 +85,7 @@ Myd-project/
 └── myd.py
 ```
 
-### Installation des dépendances
+## Installation des dépendances
 
 Maintenant que vous avez installé et activez l'environnement virtuel et récupérer le projet vous pouvez installer toutes les librairies nécessaires au fonctionnement du projet sans aucune crainte, il vous suffit d'entrer la commande suivante :
 <div class="termy">
@@ -98,4 +96,4 @@ $ (env-myd) pip install -r requirement.txt
 ```
 </div>
 
-Maintenant, que le projet est installé avec ses dépendances, on peut voir comment s'en servir en cliquant [ici](how-to-use-myd-project.md).
+Maintenant que l’installation est terminée je vous invite à [crée votre premier site avec MkDocs](create-mkdocs-website.md) et à le publier sur un de vos répertoire GitHub, si c’est déjà le cas vous pouvez directement passée à [l’utilisation du projet](how-to-use-myd-project.md).
