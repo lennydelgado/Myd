@@ -39,7 +39,7 @@ export GIT_PROJ_NAME=$(echo "$GIT_REPO" | cut -d'/' -f5)
 export DIR_NAME="$GIT_PROJ_NAME-$(echo "$GIT_ZIP_NAME" | cut -d'.' -f1)"
 
 # Take the latest version of previsous image with python
-docker pull ${REPO_DOCKER_URL}/python${PYTHON_VERSION}:latest
+docker pull ${REPO_DOCKER_URL}/myd-python${PYTHON_VERSION}:latest
 
 # Deleting of previously generated images
 docker image rm ${REPO_DOCKER_URL}/myd-docs:latest 2>&1 $PWD/logs/nginx_build_log.txt

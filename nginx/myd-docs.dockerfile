@@ -15,7 +15,7 @@ ARG REPO_DOCKER_URL
 ARG PYTHON_VERSION
 
 # Image python previouslys generated
-FROM $REPO_DOCKER_URL/python$PYTHON_VERSION:latest AS python
+FROM $REPO_DOCKER_URL/myd-python$PYTHON_VERSION:latest AS python
 
 # Recovery of token github with build arg
 ARG GIT_TOKEN
@@ -59,7 +59,7 @@ RUN pip install -r serv/requirements.txt
 # We go to the location of the .yml file then we build the server and we go back to the root
 WORKDIR /tmp/serv/docs
 
-RUN mkdocs build
+RUN mkdocs build --site-dir site
 
 # Cleaning folder of all installation files that are no longer needed
 RUN mv site /app

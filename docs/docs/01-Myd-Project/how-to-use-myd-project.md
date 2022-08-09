@@ -136,8 +136,11 @@ GIT_REPO=https://github.com/votre-nom-d'utilisateur/nom-du-repo/archive/nom-de-l
 EXT_PORT=8989
 ```
 
+!!! info
+    Si vous utilisez comme **Harbour** en tant que ```REPO_DOCKER_URL``` il vous faudra les droits d’écriture dans ce dernier sinon vous rencontrerais des problèmes lors de l’exécution des containers.
+
 !!! warning "Attention"
-    L'URL du répertoire **GitHub** doit être formaté comme ci-dessus, vous ne pouvez pas simplement faire un copié de l'URL. Il ne faut également pas de */* à la fin de votre URL Docker.
+    L'URL du répertoire **GitHub** doit être formaté comme ci-dessus, vous ne pouvez pas simplement faire un copié de l'URL. Il ne faut également pas de */* à la fin de votre URL **Docker**.
 
 
 ### Mise en place des containers
@@ -216,15 +219,13 @@ Maintenant, vous êtes prêt pour le lancement de votre site hébergé par [Ngin
 ```console
 $ (env-myd) python myd.py run --help
 
- Usage: myd.py run [OPTIONS] File External_port 
+ Usage: myd.py run [OPTIONS] File 
 
  Launches the Nginx server. 🚀                                                        
                                                                                                            
 ╭─ Arguments ─────────────────────────
 file   File             [required] Enter which configuration file you
                         want use: [exemple.conf, ...]
-                        
-ext_port External_port  [required] External port web server will use
 
 ╭─ Options ───────────────────────────
 --help          Show this message and exit.
@@ -239,7 +240,7 @@ Une fois les containers construits, vous pouvez lancer la commande ci-dessous :
 <BR>
 <div class="termy">
 ```console
-$ (env-myd) python myd.py run me.conf 8989
+$ (env-myd) python myd.py run me.conf
 
 Running nginx container on external port: 8989...
 <span style="color: lime;">Success: The server is running on external port 8989</span>

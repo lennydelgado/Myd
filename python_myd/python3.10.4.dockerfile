@@ -10,7 +10,7 @@
 
 ARG REPO_DOCKER_URL
 
-FROM $REPO_DOCKER_URL/debian_slim_myd:latest
+FROM $REPO_DOCKER_URL/debian_myd:latest
 # Recover image from your repository docker
 
 ARG PYTHON_VERSION
