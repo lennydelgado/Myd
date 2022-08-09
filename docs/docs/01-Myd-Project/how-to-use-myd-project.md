@@ -240,7 +240,7 @@ Une fois les containers construits, vous pouvez lancer la commande ci-dessous :
 <BR>
 <div class="termy">
 ```console
-$ (env-myd) python myd.py run me.conf
+$ (env-myd) python myd.py run exemple.conf
 
 Running nginx container on external port: 8989...
 <span style="color: lime;">Success: The server is running on external port 8989</span>
