@@ -255,21 +255,11 @@ def build_nginx(python_version: str, docker_url: str, git_token: str, git_repo: 
 
 # Check if user want to build a specific container or all.
 # Layer order: debian -> python -> nginx
-def build_container(data: list, option: str):
-    if (option != "debian") and (option != "python") and (option != "nginx") and (option != "all"):
-        print("[[bold red]Error[/bold red]]: No such option '" + option + "'")
+def build_container(data: list, container: str):
+    if (container != "debian") and (container != "python") and (container != "nginx") and (container != "all"):
+        print("[[bold red]Error[/bold red]]: No such option '" + container + "'")
         raise typer.Exit(code=1)
-    if (option == "debian"):
-        build_debian(data[docker])
-        print("[bold green]The debian container has been successfully built[/bold green]")
-        print("[bold blue]Everything finished being built ![/bold blue]")
-    if (option == "python"):
-        build_debian(data[docker])
-        print("[bold green]The debian container has been successfully built[/bold green]")
-        build_python(data[python], data[docker])
-        print("[bold green]The python container has been successfully built[/bold green]")
-        print("[bold blue]Everything finished being built ![/bold blue]")
-    if (option == "nginx") or (option == "all"):
+    if (container == "debian"):
         build_debian(data[docker])
         print("[bold green]The debian container has been successfully built[/bold green]")
         build_python(data[python], data[docker])
@@ -277,10 +267,20 @@ def build_container(data: list, option: str):
         build_nginx(data[python], data[docker], data[git_token], data[git_repo])
         print("[bold green]The nginx container has been successfully built[/bold green]")
         print("[bold blue]Everything finished being built ![/bold blue]")
+    if (container == "python"):
+        build_python(data[python], data[docker])
+        print("[bold green]The python container has been successfully built[/bold green]")
+        build_nginx(data[python], data[docker], data[git_token], data[git_repo])
+        print("[bold green]The nginx container has been successfully built[/bold green]")
+        print("[bold blue]Everything finished being built ![/bold blue]")
+    if (container == "nginx"):
+        build_nginx(data[python], data[docker], data[git_token], data[git_repo])
+        print("[bold green]The nginx container has been successfully built[/bold green]")
+        print("[bold blue]Everything finished being built ![/bold blue]")
         
 # Use to build container for server
 @app.command(rich_help_panel="Commands :computer:")
-def build(file: str = typer.Argument(...,help=help_build, metavar=termcolor.colored("File", 'red'), show_default=False), option: str = typer.Option("all", help="Use to build specific container: debian, python, nginx", metavar="Option")):
+def build(file: str = typer.Argument(...,help=help_build, metavar=termcolor.colored("File", 'red'), show_default=False), container: str = typer.Option("debian", help="Use to build specific container: debian, python, nginx", metavar="Container")):
     """
     Build each Docker container as needed to run. :brick:
     """
@@ -297,7 +297,7 @@ def build(file: str = typer.Argument(...,help=help_build, metavar=termcolor.colo
         check_valid_file(data, i)
         data[i] = data[i].split("=", 1)[1]
         data[i] = data[i].split("\n", 1)[0]
-    build_container(data, option)
+    build_container(data, container)
 
 # ---------------------------------------------------------------------------
 
