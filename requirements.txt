@@ -17,11 +17,9 @@ mkdocs>=1.3.0
 mkdocs-material-extensions>=1.0.3
 mkdocs-material==8.2.5
 pymdown-extensions>=9.0
-typer>=0.6.0
-colorama>=0.4.5
-click>=8.1.3
-rich>=12.5.1
-shellingham>=1.4.0
-pygments>=2.12.0
-commonmark>=0.9.1
+
+# Typer à part entière
+typer[all]>=0.6.0
+
+# Spécifique Lenny pour affichage
 termcolor>=1.1.0
