@@ -11,11 +11,8 @@
 ARG REPO_DOCKER_URL
 # Recovery of Docker repository url with build arg
 
-# Recovery of python version with build arg
-ARG PYTHON_VERSION
-
 # Image python previouslys generated
-FROM $REPO_DOCKER_URL/myd-python$PYTHON_VERSION:latest AS python
+FROM $REPO_DOCKER_URL/myd-mkdocs:latest AS mkdocs
 
 # Recovery of token github with build arg
 ARG GIT_TOKEN
@@ -24,14 +21,20 @@ ARG GIT_TOKEN
 ARG CACHEBUST
 RUN echo '$CACHEBUST'
 
-# Recovery of github repository with build arg
-ARG GIT_REPO
+# Recovery of github username with build arg
+ARG GIT_USERNAME
 
-# Recovery of github zip name with build arg
-ARG GIT_ZIP_NAME
+# Recovery of github mail with build arg
+ARG GIT_MAIL
+
+# Recovery of github page repo with build arg
+ARG GIT_PAGE_REPO
 
 # Recovery of github directory name with build arg
-ARG DIR_NAME
+ARG PROJ_NAME
+
+# Recovery of github directory name with build arg
+ARG COMMIT_MESSAGE
 
 # Nginx listening port --- Default value 80
 ARG NGINX_PORT 80
@@ -39,27 +42,26 @@ ARG NGINX_PORT 80
 # Adding listening port to environement variable
 ENV PORT_NGINX=$NGINX_PORT
 
-# Opening of port 80 for the container
-EXPOSE ${PORT_NGINX}
+RUN apt-get update
+RUN apt-get -y install git
 
-WORKDIR /tmp
+RUN git config --global user.name "${GIT_USERNAME}"
+RUN git config --global user.email "${GIT_MAIL}"
+RUN git config --global user.password "${GIT_TOKEN}"
 
-# Installation via my repo allowing to have all the files necessary for the site
-RUN wget --header "Authorization: token ${GIT_TOKEN}" $GIT_REPO;  \
-    unzip $GIT_ZIP_NAME;  \
-    rm $GIT_ZIP_NAME
+RUN git clone ${GIT_PAGE_REPO}
 
-# Changing the name of the decompressed archive
-RUN echo ${DIR_NAME}
-RUN mv ${DIR_NAME}/ serv/
+WORKDIR /tmp/serv/docs/${PROJ_NAME}
 
-# Installing dependencies
-RUN pip install -r serv/requirements.txt
+RUN rm -rf site
 
-# We go to the location of the .yml file then we build the server and we go back to the root
-WORKDIR /tmp/serv/docs
+RUN mv /tmp/serv/docs/site /tmp/serv/docs/${PROJ_NAME}
 
-RUN mkdocs build --site-dir site
+RUN git add .
+
+RUN git commit -m "${COMMIT_MESSAGE}"
+
+RUN git push
 
 # Cleaning folder of all installation files that are no longer needed
 RUN mv site /app
@@ -71,7 +73,7 @@ FROM nginx:1.23.0-alpine AS ngx
 WORKDIR /usr/share/nginx/html
 
 # Copy all web page files from previous frame
-COPY --from=python /app/ .
+COPY --from=mkdocs /app/ .
 
 # Forward request and error logs to docker log collector
 RUN ln -sf /dev/stdout /var/log/nginx/access.log \

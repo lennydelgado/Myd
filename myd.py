@@ -280,7 +280,7 @@ def build_container(data: list, container: str):
         
 # Use to build container for server
 @app.command(rich_help_panel="Commands :computer:")
-def build(file: str = typer.Argument(...,help=help_build, metavar=termcolor.colored("File", 'red'), show_default=False), container: str = typer.Option("debian", help="Use to build specific container: debian, python, nginx", metavar="Container")):
+def build(file: str = typer.Argument(..., help=help_build, metavar=termcolor.colored("File", 'red'), show_default=False), container: str = typer.Option("debian", help="Use to build specific container: debian, python, nginx", metavar="Container")):
     """
     Build each Docker container as needed to run. :brick:
     """
