@@ -24,9 +24,9 @@ Une fois que vous êtes dans votre répertoire vide vous allez créer la base de
 ```console
 $ mkdocs new docs
 
-<span style="color: green;">INFO</span>:     -  Creating project directory : docs
-<span style="color: green;">INFO</span>:     -  Writing config file : docs\mkdocs.yml
-<span style="color: green;">INFO</span>:     -  Writing initial docs : docs\docs\index.md
+<span style="color: green;">INFO</span>:     -   Creating project directory : docs
+<span style="color: green;">INFO</span>:     -   Writing config file : docs\mkdocs.yml
+<span style="color: green;">INFO</span>:     -   Writing initial docs : docs\docs\index.md
 ```
 
 </div>
