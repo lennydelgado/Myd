@@ -24,6 +24,8 @@ Myd-project/
 │
 ├── nginx/
 │   ├── build-myd-docs.sh
+│   ├── first-build-myd-mkdocs.sh
+│   ├── myd-mkdocs.dockerfile
 │   ├── myd-docs.dockerfile
 │   └── run-nginx.sh
 |
@@ -42,9 +44,9 @@ On peut désormais regarder comment le projet fonctionne en utilisant la command
 <div class="termy">
 ```console
 $ (env-myd) python myd.py --help
-                                                                                                           
- Usage: myd.py [OPTIONS] COMMAND [ARGS]...                                                                 
-                                                                                                           
+
+ Usage: myd.py [OPTIONS] COMMAND [ARGS]...
+
 ╭─ Options ──────────────────────────────────────────
 --install-completion   Install completion for the current shell.
 --help                 Show this message and exit.
@@ -115,6 +117,18 @@ $ (env-myd) votre_token_GitHub
 
 $ (env-myd) https://github.com/votre-nom-d'utilisateur/nom-du-repo/archive/nom-de-la-branche.zip
 
+<span style="color: lime;">Input GitHub username:</span>
+
+$ (env-myd) username
+
+<span style="color: lime;">Input GitHub email:</span>
+
+$ (env-myd) your@mail.com
+
+<span style="color: lime;">Input commit message:</span>
+
+$ (env-myd) commit_message
+
 <span style="color: lime;">Input external port will be used to run server:</span>
 
 $ (env-myd) 8989
@@ -129,10 +143,13 @@ Maintenant, que le fichier est créé, vous devriez avoir un fichier ```.conf```
 Il devrait être présenté comme ceci :
 
 ```
-REPO_DOCKER_URL=votre-url-docker
-PYTHON_VERSION=3.10.4
-GIT_TOKEN=votre_token_github
-GIT_REPO=https://github.com/votre-nom-d'utilisateur/nom-du-repo/archive/nom-de-la-branche.zip
+REPO_DOCKER_URL=your_docker_url
+PYTHON_VERSION=3.X.X
+GIT_TOKEN=your_github_token
+GIT_REPO=https://github.com/user/project-name/archive/name-of-branch.zip
+GIT_USERNAME=username
+GIT_EMAIL=your@mail.com
+COMMIT_MESSAGE=commit message
 EXT_PORT=8989
 ```
 
@@ -153,7 +170,7 @@ Regardons comment cela fonctionne :
 ```console
 $ (env-myd) python myd.py build --help
 
- Usage: myd.py build [OPTIONS] File Option                                                   
+ Usage: myd.py build [OPTIONS] File                                                   
                                                                                                            
  Build each Docker container as needed to run. 🧱                                                          
                                                                                                            

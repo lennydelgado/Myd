@@ -7,21 +7,9 @@ Pour pouvoir mettre votre site sur [GitHub Pages](https://docs.github.com/en/pag
 
 ## Récupération du site
 
-Dans un premier temps, vous devrez récupérer les pages ```HTML``` de votre site elles ont été générées dans le container [Nginx](https://www.nginx.com/){.internal-link target=_blank} lors de la du ```build``` du programme.
+Si vous n'avez pas eu de problème lors du ```build```, un nouveau dossier est apparu sur votre répertoire GitHub et il se nomme ```site```.
 
-Assurez-vous d'être dans le répertoire que vous souhaitez utilisé, puis taper la commande suivante :
-
-<div class="termy">
-```console
-$ docker cp nginx-myd:/usr/share/nginx/html .
-
----> 100%
-
-Copie terminer
-```
-</div>
-
-Vous devriez à présent avoir un dossier nommé ```html```, vous pouvez à présent le renommé ```docs```. Enfin, ajouter le à votre répertoire [GitHub](https://github.com/){.internal-link target=_blank}.
+Ce dossier contient toutes les pages **HTML** générées par [MkDocs](https://www.mkdocs.org/){.internal-link target=_blank}, si le dossier est bien présent nous pouvons passer à l'étape d'après sinon relancer vous-même une génération.
 
 ## Mise en ligne sur GitHub Pages
 
@@ -29,12 +17,16 @@ Afin de mettre votre site sur [GitHub Pages](https://docs.github.com/en/pages/ge
 
 ![1_github.png](../img/1_github.png "GitHub Pages")
 
-Par la suite vous choisissez la *branch* qui contient le dossier avec les fichiers de votre site.
+Par la suite vous choisissez la méthode de déploiement par une [GitHub Action](https://docs.github.com/en/actions){.internal-link target=_blank} et vous cliquez sur configure en dessous de **Static HTML**.
 
 ![2_github.png](../img/2_github.png "GitHub Pages")
 
-Enfin sélectionner le dossier précis du répertoire de votre site récupérer plus tôt.
+Vous devriez normalement tombez sur cette page.
 
 ![3_github.png](../img/3_github.png "GitHub Pages")
 
-Vous pouvez sauvgardé, pour maintenir le site à jour lors de modification vous aurez à modifier la documentation de votre site [MkDocs](https://www.mkdocs.org/){.internal-link target=_blank}, puis à refaire les étapes à partir de la [construction des containers](how-to-use-myd-project.md){.internal-link target=_blank}.
+Nous allons modifier ce fichier pour faire que dès lors on utilise **Myd**, la génération et la publication se fasse automatiquement lors d'une modification dans le dossier site. Il faut effectuer des modifications aux lignes 7 et 39 comme ci-dessous. 
+
+![4_github.png](../img/4_github.png "GitHub Pages")
+
+Vous pouvez enregistrer, grâce à ça dès que vous utiliserez à nouveaux **Myd** votre documentation seras mise à jour.
