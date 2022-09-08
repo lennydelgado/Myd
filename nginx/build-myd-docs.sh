@@ -67,17 +67,17 @@ docker pull ${REPO_DOCKER_URL}/myd-python${PYTHON_VERSION}:latest
 docker pull ${REPO_DOCKER_URL}/myd-mkdocs:latest
 
 # Deleting of previously generated images
-docker image rm ${REPO_DOCKER_URL}/myd-docs:latest 2>&1 $PWD/logs/nginx_build_log.txt
-docker image rm myd-docs:latest 2>&1 $PWD/logs/nginx_build_log.txt
+docker image rm ${REPO_DOCKER_URL}/stage-lenny:latest 2>&1 $PWD/logs/nginx_build_log.txt
+docker image rm stage-lenny:latest 2>&1 $PWD/logs/nginx_build_log.txt
 
 # Build image with MkDocs only if already exist on docker repository
 if [ "$RES" -eq "0" ]; then
-    docker image build --build-arg CACHEBUST=$(date +%s) --build-arg REPO_DOCKER_URL --build-arg PYTHON_VERSION --build-arg GIT_TOKEN --build-arg GIT_REPO --build-arg GIT_ZIP_NAME --build-arg DIR_NAME -f $PWD/nginx/myd-mkdocs.dockerfile -t myd-mkdocs:latest .
-    docker tag myd-mkdocs:latest ${REPO_DOCKER_URL}/myd-mkdocs:latest
-    docker push ${REPO_DOCKER_URL}/myd-mkdocs:latest
+    docker image build --build-arg CACHEBUST=$(date +%s) --build-arg REPO_DOCKER_URL --build-arg PYTHON_VERSION --build-arg GIT_TOKEN --build-arg GIT_REPO --build-arg GIT_ZIP_NAME --build-arg DIR_NAME -f $PWD/nginx/myd-mkdocs.dockerfile -t myd-mkdocs:latest . 2>&1 $PWD/logs/nginx_build_log.txt
+    docker tag myd-mkdocs:latest ${REPO_DOCKER_URL}/myd-mkdocs:latest 2>&1 $PWD/logs/nginx_build_log.txt
+    docker push ${REPO_DOCKER_URL}/myd-mkdocs:latest 2>&1 $PWD/logs/nginx_build_log.txt
 fi;
 
 # Build image with nginx
-docker image build --build-arg CACHEBUST=$(date +%s) --build-arg COMMIT_MESSAGE --build-arg PROJ_NAME --build-arg GIT_PAGE_REPO --build-arg GIT_MAIL --build-arg GIT_USERNAME --build-arg REPO_DOCKER_URL --build-arg GIT_TOKEN -f $PWD/nginx/myd-docs.dockerfile -t myd-docs:latest .
-docker tag myd-docs:latest ${REPO_DOCKER_URL}/myd-docs:latest
-docker push ${REPO_DOCKER_URL}/myd-docs:latest
+docker image build --build-arg CACHEBUST=$(date +%s) --build-arg COMMIT_MESSAGE --build-arg PROJ_NAME --build-arg GIT_PAGE_REPO --build-arg GIT_MAIL --build-arg GIT_USERNAME --build-arg REPO_DOCKER_URL --build-arg GIT_TOKEN -f $PWD/nginx/myd-docs.dockerfile -t stage-lenny:latest .
+docker tag stage-lenny:latest ${REPO_DOCKER_URL}/stage-lenny:latest
+docker push ${REPO_DOCKER_URL}/stage-lenny:latest

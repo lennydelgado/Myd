@@ -262,7 +262,7 @@ def build_python(python_version: str, docker_url: str):
             raise typer.Exit(code=1)
 
 # Run shell scrit to build python image
-def build_nginx(python_version: str, docker_url: str, git_token: str, git_repo: str):
+def build_nginx(python_version: str, docker_url: str, git_token: str, git_repo: str, git_username: str, git_email: str, commit_message: str):
 
 # Create directory to store logs files
     if not os.path.isdir("logs"):
@@ -271,7 +271,7 @@ def build_nginx(python_version: str, docker_url: str, git_token: str, git_repo: 
 # Write in file for log and add spinning bar during docker build process
     with open("logs/nginx_build_log.txt", "w+") as log, Progress(SpinnerColumn(), TextColumn("[progress.description]{task.description}"), transient=True) as progress:
         progress.add_task(description="Building Nginx container...", total=None)
-        raw_output: subprocess.CompletedProcess = subprocess.run(['sh', 'nginx/./build-myd-docs.sh', python_version, docker_url, git_token, git_repo], capture_output=True)
+        raw_output: subprocess.CompletedProcess = subprocess.run(['sh', 'nginx/./build-myd-docs.sh', python_version, docker_url, git_token, git_repo, git_username, git_email, commit_message], capture_output=True)
         log.write("----------------------------------NGINX LOG----------------------------------\n\n")
         log.write(raw_output.stdout.decode())
 
@@ -301,7 +301,7 @@ def build_container(data: list, container: str):
         print("[bold green]The nginx container has been successfully built[/bold green]")
         print("[bold blue]Everything finished being built ![/bold blue]")
     if (container == "nginx"):
-        build_nginx(data[python], data[docker], data[git_token], data[git_repo])
+        build_nginx(data[python], data[docker], data[git_token], data[git_repo], data[git_username], data[git_email], data[commit_message])
         print("[bold green]The nginx container has been successfully built[/bold green]")
         print("[bold blue]Everything finished being built ![/bold blue]")
         
@@ -313,7 +313,7 @@ def build(file: str = typer.Argument(..., help=help_build, metavar=termcolor.col
     """
 
 # Store config file index value in list and prepare argument for build
-    key_value: list = [docker, python, git_token, git_repo]
+    key_value: list = [docker, python, git_token, git_repo, git_username, git_email, commit_message]
     file = error_conf_file(file)
     with open(file, 'r') as f:
         data: list = f.readlines()
