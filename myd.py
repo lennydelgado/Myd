@@ -29,8 +29,14 @@ def get_param(param: str):
         return 2
     if param == "git_repo" or param == "repo" or param == "r":
         return 3
-    if param == "ext_port" or param == "ext" or param == "e":
+    if param == "git_username" or param == "username" or param == "u":
         return 4
+    if param == "git_email" or param == "mail" or param == "em":
+        return 5
+    if param == "commit_message" or param == "mess" or param == "m":
+        return 6
+    if param == "ext_port" or param == "ext" or param == "e":
+        return 7
     print("[[bold red]Error[/bold red]]: '" + param + "' is not valid parameter")
     raise typer.Exit(code=1)
 
@@ -65,6 +71,9 @@ def init_conf():
 
     git_token: str = input("\nInput Github Token: ")
     git_repo: str = input("\nInput Github Repository: ")
+    git_username: str = input("\nInput Github username: ")
+    git_email: str = input("\nInput Github e-mail: ")
+    commit_message: str = input("\nInput your commit message: ")
 
     # Check if external port contains other character than number
     external_port: str = input("\nInput external port will be used to run server: ")
@@ -86,6 +95,9 @@ def init_conf():
             file.write("PYTHON_VERSION=" + python_version + "\n")
             file.write("GIT_TOKEN=" + git_token + "\n")
             file.write("GIT_REPO=" + git_repo + "\n")
+            file.write("GIT_USERNAME=" + git_username + "\n")
+            file.write("GIT_EMAIL=" + git_email + "\n")
+            file.write("COMMIT_MESSAGE=" + commit_message + "\n")
             file.write("EXT_PORT=" + external_port + "\n")
     else:
         with open(conf_path, 'w')  as file:
@@ -93,6 +105,9 @@ def init_conf():
             file.write("PYTHON_VERSION=" + python_version + "\n")
             file.write("GIT_TOKEN=" + git_token + "\n")
             file.write("GIT_REPO=" + git_repo + "\n")
+            file.write("GIT_USERNAME=" + git_username + "\n")
+            file.write("GIT_EMAIL=" + git_email + "\n")
+            file.write("COMMIT_MESSAGE=" + commit_message + "\n")
             file.write("EXT_PORT=" + external_port + "\n")
     return conf_name
 
@@ -112,7 +127,7 @@ def edit_conf():
         raise typer.Exit(code=1)
 
     # Ask user with wich parameter he want to edit
-    print("[green]\nParameters: docker_url, python_version, git_token, git_repo, ext_port[/green]")
+    print("[green]\nParameters: docker_url, python_version, git_token, git_repo, git_username, git_email, commit_message, ext_port[/green]")
     param: str = input("\nPlease select which parameter you want edit: ")
     line: int = get_param(param)
 
@@ -186,7 +201,16 @@ def check_valid_file(data: list, line: int):
     if ((len(param) == 1) and (line == 3)) or ((line == 3) and (name_val != "GIT_REPO")):
         print("[[bold red]Error[/bold red]]: The configuration file is correct but the data '[bold red]GIT_REPO[/bold red]' is badly formatted, please regenerate one with the command 'python myd.py create'")
         raise typer.Exit(code=1)
-    if ((len(param) == 1) and (line == 4)) or ((line == 4) and (name_val != "EXT_PORT")):
+    if ((len(param) == 1) and (line == 4)) or ((line == 4) and (name_val != "GIT_USERNAME")):
+        print("[[bold red]Error[/bold red]]: The configuration file is correct but the data '[bold red]GIT_USERNAME[/bold red]' is badly formatted, please regenerate one with the command 'python myd.py create'")
+        raise typer.Exit(code=1)
+    if ((len(param) == 1) and (line == 5)) or ((line == 5) and (name_val != "GIT_EMAIL")):
+        print("[[bold red]Error[/bold red]]: The configuration file is correct but the data '[bold red]GIT_EMAIL[/bold red]' is badly formatted, please regenerate one with the command 'python myd.py create'")
+        raise typer.Exit(code=1)
+    if ((len(param) == 1) and (line == 6)) or ((line == 6) and (name_val != "COMMIT_MESSAGE")):
+        print("[[bold red]Error[/bold red]]: The configuration file is correct but the data '[bold red]COMMIT_MESSAGE[/bold red]' is badly formatted, please regenerate one with the command 'python myd.py create'")
+        raise typer.Exit(code=1)
+    if ((len(param) == 1) and (line == 7)) or ((line == 7) and (name_val != "EXT_PORT")):
         print("[[bold red]Error[/bold red]]: The configuration file is correct but the data '[bold red]EXT_PORT[/bold red]' is badly formatted, please regenerate one with the command 'python myd.py create'")
         raise typer.Exit(code=1)
     return
@@ -196,7 +220,10 @@ docker: int = 0
 python: int = 1
 git_token: int = 2
 git_repo: int = 3
-external_port: int = 4
+git_username: int = 4
+git_email: int = 5
+commit_message: int = 6
+external_port: int = 7
 
 # Run shell scrit to build debian image
 def build_debian(docker_url: str):
@@ -235,7 +262,7 @@ def build_python(python_version: str, docker_url: str):
             raise typer.Exit(code=1)
 
 # Run shell scrit to build python image
-def build_nginx(python_version: str, docker_url: str, git_token: str, git_repo: str):
+def build_nginx(python_version: str, docker_url: str, git_token: str, git_repo: str, git_username: str, git_email: str, commit_message: str):
 
 # Create directory to store logs files
     if not os.path.isdir("logs"):
@@ -244,7 +271,7 @@ def build_nginx(python_version: str, docker_url: str, git_token: str, git_repo: 
 # Write in file for log and add spinning bar during docker build process
     with open("logs/nginx_build_log.txt", "w+") as log, Progress(SpinnerColumn(), TextColumn("[progress.description]{task.description}"), transient=True) as progress:
         progress.add_task(description="Building Nginx container...", total=None)
-        raw_output: subprocess.CompletedProcess = subprocess.run(['sh', 'nginx/./build-myd-docs.sh', python_version, docker_url, git_token, git_repo], capture_output=True)
+        raw_output: subprocess.CompletedProcess = subprocess.run(['sh', 'nginx/./build-myd-docs.sh', python_version, docker_url, git_token, git_repo, git_username, git_email, commit_message], capture_output=True)
         log.write("----------------------------------NGINX LOG----------------------------------\n\n")
         log.write(raw_output.stdout.decode())
 
@@ -274,7 +301,7 @@ def build_container(data: list, container: str):
         print("[bold green]The nginx container has been successfully built[/bold green]")
         print("[bold blue]Everything finished being built ![/bold blue]")
     if (container == "nginx"):
-        build_nginx(data[python], data[docker], data[git_token], data[git_repo])
+        build_nginx(data[python], data[docker], data[git_token], data[git_repo], data[git_username], data[git_email], data[commit_message])
         print("[bold green]The nginx container has been successfully built[/bold green]")
         print("[bold blue]Everything finished being built ![/bold blue]")
         
@@ -286,11 +313,11 @@ def build(file: str = typer.Argument(..., help=help_build, metavar=termcolor.col
     """
 
 # Store config file index value in list and prepare argument for build
-    key_value: list = [docker, python, git_token, git_repo]
+    key_value: list = [docker, python, git_token, git_repo, git_username, git_email, commit_message]
     file = error_conf_file(file)
     with open(file, 'r') as f:
         data: list = f.readlines()
-    if (len(data) != 5):
+    if (len(data) != 8):
         print("[[bold red]Error[/bold red]]: The configuration file is not well formatted, please regenerate one with the command 'python myd.py create'")
         raise typer.Exit(code=1)
     for i in key_value:

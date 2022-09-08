@@ -1,9 +1,0 @@
-----------------------------------NGINX LOG----------------------------------
-
-nginx-myd
-Error: No such container: home/ldelgado/Delivery/Myd/logs/nginx_run_log.txt
-latest: Pulling from vpa/myd-docs
-Digest: sha256:15ca75d104640f7b06429629614b309784a59be56ce50fdf6e33cc06cab78f50
-Status: Image is up to date for qxzvnoxv.gra7.container-registry.ovh.net/vpa/myd-docs:latest
-qxzvnoxv.gra7.container-registry.ovh.net/vpa/myd-docs:latest
-3b70b99281fbb77f59f5e84918c8980c9109ca5126f45d9cf528a4e85e78fe2e
