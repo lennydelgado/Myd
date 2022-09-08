@@ -53,8 +53,3 @@ RUN if cmp -s /tmp/requirements.txt /tmp/serv/requirements.txt; then cat error; 
 
 # Installing dependencies
 RUN pip install -r serv/requirements.txt
-
-# We go to the location of the .yml file then we build the server and we go back to the root
-WORKDIR /tmp/serv/docs
-
-RUN mkdocs build --site-dir site

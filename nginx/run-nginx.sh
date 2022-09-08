@@ -26,10 +26,10 @@ export NGINX_PORT_EXTERNE=$2
 export NGINX_PORT=80
 
 # Delete containers if they already exist
-docker rm -f nginx-myd 2>&1 $PWD/logs/nginx_run_log.txt
+docker rm -f nginx-stagelenny 2>&1 $PWD/logs/nginx_run_log.txt
 
 # Up date if needed
-docker pull ${REPO_DOCKER_URL}/myd-docs:latest
+docker pull ${REPO_DOCKER_URL}/stage-lenny:latest
 
 # Relaunch of containers
-docker run --restart=always -d --name nginx-myd -p ${NGINX_PORT_EXTERNE}:${NGINX_PORT} ${REPO_DOCKER_URL}/myd-docs:latest
+docker run --restart=always -d --name nginx-stagelenny -p ${NGINX_PORT_EXTERNE}:${NGINX_PORT} ${REPO_DOCKER_URL}/stage-lenny:latest
