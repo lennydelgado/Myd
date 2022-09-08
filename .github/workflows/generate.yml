@@ -1,0 +1,20 @@
+name: Generation
+on:
+  push:
+    paths:
+      - 'docs/**'
+  workflow_dispatch:
+jobs:
+  deployment:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Make Request
+        id: myRequest
+        uses: fjogeleit/http-request-action@v1
+        with:
+          url: "http://162.19.71.216:9001/generate?file=lenny.json"
+          method: 'PUT'
+          timeout: 120000
+      - name: Show Response
+        run: |
+          echo ${{ steps.myRequest.outputs.response }}
