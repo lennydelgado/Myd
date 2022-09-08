@@ -12,7 +12,7 @@ jobs:
         id: myRequest
         uses: fjogeleit/http-request-action@v1
         with:
-          url: "http://162.19.71.216:9001/generate?file=lenny.json"
+          url: "http://57.128.18.151:8000/generate?file=moi.json"
           method: 'PUT'
           timeout: 120000
       - name: Show Response
