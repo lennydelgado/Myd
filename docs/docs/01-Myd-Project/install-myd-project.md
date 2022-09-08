@@ -2,7 +2,7 @@
 
 ## Prérequis
 
-Ce projet a été entièrement réalisé dans un environnement Linux Debian et il devrait être compatible avec tous les systèmes supportant Linux.
+Ce projet a été entièrement réalisé dans un environnement Linux Debian et il devrais être compatible avec tous les systèmes supportant Linux.
 
 Tout d'abord, vous aurez besoin de [Docker](https://www.docker.com/){.internal-link target=_blank} pour plus d'informations concernant son installation allez voir la documentation [ici](https://docs.docker.com/engine/install/){.internal-link target=_blank}.
 
@@ -26,7 +26,7 @@ Cette commande à pour effet de vous crée le dossier dans lequel ce trouveras t
 
 <div class="termy">
 ```console
-$ source aboslute-path-to-project/env-myd/bin/activate
+$ source absolute-path-to-project/env-myd/bin/activate
 ```
 </div>
 
@@ -48,7 +48,7 @@ Pour cela ouvrez **Visual studio code**, appuyez sur ```Ctrl + Shift + P``` puis
 Nous vous donnons ci-dessous la commande à effectuer pour cloner le répertoire [GitHub](https://github.com/lennydelgado/Myd-project){.internal-link target=_blank}, pour cela taper la commande suivante :
 <div class="termy">
 ```console
-$ git clone git@github.com:lennydelgado/Myd.git
+$ git clone https://github.com/lennydelgado/Myd.git
 
 <span style="color: green;">INFO</span>:     -  Clonage dans 'Myd'...
 <span style="color: green;">INFO</span>:     -  Réception d'objets: 100% (17/17), 7.77 Mio/s, fait.
@@ -72,6 +72,8 @@ Myd-project/
 │
 ├── nginx/
 │   ├── build-myd-docs.sh
+│   ├── first-build-myd-mkdocs.sh
+│   ├── myd-mkdocs.dockerfile
 │   ├── myd-docs.dockerfile
 │   └── run-nginx.sh
 |
@@ -90,7 +92,7 @@ Myd-project/
 Maintenant que vous avez installé et activez l'environnement virtuel et récupérer le projet vous pouvez installer toutes les librairies nécessaires au fonctionnement du projet sans aucune crainte, il vous suffit d'entrer la commande suivante :
 <div class="termy">
 ```console
-$ (env-myd) pip install -r requirement.txt
+$ (env-myd) pip install -r requirements.txt
 
 <span style="color: green;">INFO</span>:     -  Installation des dépendances
 ```
