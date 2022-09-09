@@ -19,7 +19,7 @@ mkdocs-material==8.2.5
 pymdown-extensions>=9.0
 
 # Typer à part entière
-typer[all]>=0.6.0
+typer[all]>=0.6.1
 
 # Spécifique Lenny pour affichage
 termcolor>=1.1.0
