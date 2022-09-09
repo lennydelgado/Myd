@@ -29,15 +29,9 @@ export REPO_DOCKER_URL=$2
 export GIT_TOKEN=$3
 
 # Recovery of link to your project
-export GIT_REPO=$4
-
-# Recovery of the name of .zip file
-export GIT_ZIP_NAME=$(echo "$GIT_REPO" | rev | cut -d'/' -f 1 | rev)
-
-# Recovery of the directory name
-export DIR_NAME="$GIT_PROJ_NAME-$(echo "$GIT_ZIP_NAME" | cut -d'.' -f1)"
+export REQUIREMENTS_FILE=$4
 
 # Build image with MkDocs
-docker image build --build-arg CACHEBUST=$(date +%s) --build-arg REPO_DOCKER_URL --build-arg PYTHON_VERSION --build-arg GIT_TOKEN --build-arg GIT_REPO --build-arg GIT_ZIP_NAME --build-arg DIR_NAME -f $PWD/nginx/first-myd-mkdocs.dockerfile -t myd-mkdocs:latest .
+docker image build --no-cache --build-arg CACHEBUST=$(date +%s) --build-arg REPO_DOCKER_URL --build-arg PYTHON_VERSION --build-arg GIT_TOKEN --build-arg REQUIREMENTS_FILE -f $PWD/nginx/first-myd-mkdocs.dockerfile -t myd-mkdocs:latest .
 docker tag myd-mkdocs:latest ${REPO_DOCKER_URL}/myd-mkdocs:latest
 docker push ${REPO_DOCKER_URL}/myd-mkdocs:latest

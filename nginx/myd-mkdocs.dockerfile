@@ -23,33 +23,30 @@ FROM $REPO_DOCKER_URL/myd-python$PYTHON_VERSION:latest AS python
 # Recovery of token github with build arg
 ARG GIT_TOKEN
 
-# Invalidate docker cache
-ARG CACHEBUST
-RUN echo '$CACHEBUST'
 
 # Recovery of github repository with build arg
-ARG GIT_REPO
+ARG REQUIREMENTS_FILE
 
-# Recovery of github zip name with build arg
-ARG GIT_ZIP_NAME
-
-# Recovery of github directory name with build arg
-ARG DIR_NAME
-
+# Directory with the previous requirements.txt version
 WORKDIR /tmp
 
+# Invalidate docker cache
+ARG CACHEBUST
+RUN echo ${CACHEBUST}
+
+# Copy previous version of depandancies
+COPY --from=mkdocs /tmp/new/requirements.txt .
+
+# Directory with the last requirements.txt version
+WORKDIR /tmp/new
+
 # Installation via my repo allowing to have all the files necessary for the site
-RUN wget --header "Authorization: token ${GIT_TOKEN}" ${GIT_REPO};  \
-    unzip $GIT_ZIP_NAME;  \
-    rm $GIT_ZIP_NAME
+RUN wget --header "Authorization: token ${GIT_TOKEN}" ${REQUIREMENTS_FILE};
 
-# Changing the name of the decompressed archive
-RUN echo ${DIR_NAME}
-RUN mv ${DIR_NAME}/ serv/
+RUN cat requirements.txt
 
-COPY --from=mkdocs /tmp/serv/requirements.txt .
-
-RUN if cmp -s /tmp/requirements.txt /tmp/serv/requirements.txt; then cat error; fi
+# Check if depandancies have been updated
+RUN if cmp -s /tmp/requirements.txt /tmp/new/requirements.txt; then Not_new_dependencies; fi
 
 # Installing dependencies
-RUN pip install -r serv/requirements.txt
+RUN pip install -r /tmp/new/requirements.txt

@@ -14,13 +14,8 @@ ARG REPO_DOCKER_URL
 # Image python previouslys generated
 FROM $REPO_DOCKER_URL/myd-mkdocs:latest AS mkdocs
 
-
 # Recovery of token github with build arg
 ARG GIT_TOKEN
-
-# Invalidate docker cache
-ARG CACHEBUST
-RUN echo '$CACHEBUST'
 
 # Recovery of github repository with build arg
 ARG GIT_REPO
@@ -52,6 +47,12 @@ ARG NGINX_PORT 80
 # Adding listening port to environement variable
 ENV PORT_NGINX=$NGINX_PORT
 
+WORKDIR /tmp
+
+# Invalidate docker cache
+ARG CACHEBUST
+RUN echo ${CACHEBUST}
+
 # Installation via my repo allowing to have all the files necessary for the site
 RUN wget --header "Authorization: token ${GIT_TOKEN}" ${GIT_REPO};  \
     unzip $GIT_ZIP_NAME;  \
@@ -67,9 +68,11 @@ WORKDIR /tmp/serv/docs
 # Build HTML file with MkDocs
 RUN mkdocs build --site-dir site
 
+# Check if we need install git or not
 RUN apt-get update
 RUN apt-get -y install git
 
+# Configuration of git to push on repository
 RUN git config --global user.name "${GIT_USERNAME}"
 RUN git config --global user.email "${GIT_MAIL}"
 RUN git config --global user.password "${GIT_TOKEN}"
@@ -78,14 +81,15 @@ RUN git clone ${GIT_PAGE_REPO}
 
 WORKDIR /tmp/serv/docs/${PROJ_NAME}
 
+# Removing previous generated HTML page
 RUN rm -rf site
 
+# Add new HTML page
 RUN mv /tmp/serv/docs/site /tmp/serv/docs/${PROJ_NAME}
 
+# Pushing to repository
 RUN git add .
-
 RUN git commit -m "${COMMIT_MESSAGE}"
-
 RUN git push
 
 # Cleaning folder of all installation files that are no longer needed

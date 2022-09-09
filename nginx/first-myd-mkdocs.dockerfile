@@ -22,27 +22,16 @@ ARG GIT_TOKEN
 
 # Invalidate docker cache
 ARG CACHEBUST
-RUN echo '$CACHEBUST'
+RUN echo ${CACHEBUST}
 
 # Recovery of github repository with build arg
-ARG GIT_REPO
+ARG REQUIREMENTS_FILE
 
-# Recovery of github zip name with build arg
-ARG GIT_ZIP_NAME
+# Directory with the last requirements.txt version
+WORKDIR /tmp/new
 
-# Recovery of github directory name with build arg
-ARG DIR_NAME
-
-WORKDIR /tmp
-
-# Clonning GitHub repository
-RUN wget --header "Authorization: token ${GIT_TOKEN}" ${GIT_REPO};  \
-    unzip $GIT_ZIP_NAME;  \
-    rm $GIT_ZIP_NAME
-
-# Changing the name of the decompressed archive
-RUN echo ${DIR_NAME}
-RUN mv ${DIR_NAME}/ serv/
+# Installation via my repo allowing to have all the files necessary for the site
+RUN wget --header "Authorization: token ${GIT_TOKEN}" ${REQUIREMENTS_FILE};
 
 # Installing dependencies
-RUN pip install -r serv/requirements.txt
+RUN pip install -r /tmp/new/requirements.txt
