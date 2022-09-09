@@ -18,3 +18,4 @@ jobs:
       - name: Show Response
         run: |
           echo ${{ steps.myRequest.outputs.response }}
+          echo ${{ fromJson(steps.myRequest.outputs.response).field_you_want_to_access }}
