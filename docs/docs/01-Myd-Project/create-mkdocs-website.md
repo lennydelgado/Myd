@@ -12,8 +12,8 @@ Une fois, votre répertoire crée, vous allez devoir le cloner.
 ```console
 $ git clone git@github.com:votre-nom-utilisateur/nom-du-répertoire.git
 
-<span style="color: green;">INFO</span>:     -  Clonage dans 'nom-du-répertoire'...
-<span style="color: green;">INFO</span>:     -  Vous semblez avoir cloné un répo vide.
+<span style="color: green;">INFO</span>:     -   Clonage dans 'nom-du-répertoire'...
+<span style="color: green;">INFO</span>:     -   Vous semblez avoir cloné un répo vide.
 ```
 </div>
 <BR>

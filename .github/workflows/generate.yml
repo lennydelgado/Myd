@@ -14,8 +14,7 @@ jobs:
         with:
           url: "http://57.128.18.151:8000/generate?file=moi.json"
           method: 'PUT'
-          timeout: 120000
+          timeout: 180000
       - name: Show Response
         run: |
           echo ${{ steps.myRequest.outputs.response }}
-          echo ${{ steps.myRequest.outputs.headers }}
