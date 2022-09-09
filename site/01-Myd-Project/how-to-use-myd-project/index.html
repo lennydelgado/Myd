@@ -462,6 +462,8 @@
 <span class="go">│</span>
 <span class="go">├── nginx/</span>
 <span class="go">│   ├── build-myd-docs.sh</span>
+<span class="go">│   ├── first-build-myd-mkdocs.sh</span>
+<span class="go">│   ├── myd-mkdocs.dockerfile</span>
 <span class="go">│   ├── myd-docs.dockerfile</span>
 <span class="go">│   └── run-nginx.sh</span>
 <span class="go">|</span>
@@ -478,7 +480,7 @@
 <div class="termy">
 <div class="highlight"><pre><span></span><code><span class="gp">$ </span><span class="o">(</span>env-myd<span class="o">)</span> python myd.py --help
 
-<span class="go"> Usage: myd.py [OPTIONS] COMMAND [ARGS]...                                                                 </span>
+<span class="go"> Usage: myd.py [OPTIONS] COMMAND [ARGS]...</span>
 
 <span class="go">╭─ Options ──────────────────────────────────────────</span>
 <span class="go">--install-completion   Install completion for the current shell.</span>
@@ -541,6 +543,18 @@
 
 <span class="gp">$ </span><span class="o">(</span>env-myd<span class="o">)</span> https://github.com/votre-nom-d<span class="err">&#39;</span>utilisateur/nom-du-repo/archive/nom-de-la-branche.zip
 
+<span class="go">&lt;span style=&quot;color: lime;&quot;&gt;Input GitHub username:&lt;/span&gt;</span>
+
+<span class="gp">$ </span><span class="o">(</span>env-myd<span class="o">)</span> username
+
+<span class="go">&lt;span style=&quot;color: lime;&quot;&gt;Input GitHub email:&lt;/span&gt;</span>
+
+<span class="gp">$ </span><span class="o">(</span>env-myd<span class="o">)</span> your@mail.com
+
+<span class="go">&lt;span style=&quot;color: lime;&quot;&gt;Input commit message:&lt;/span&gt;</span>
+
+<span class="gp">$ </span><span class="o">(</span>env-myd<span class="o">)</span> commit_message
+
 <span class="go">&lt;span style=&quot;color: lime;&quot;&gt;Input external port will be used to run server:&lt;/span&gt;</span>
 
 <span class="gp">$ </span><span class="o">(</span>env-myd<span class="o">)</span> <span class="m">8989</span>
@@ -552,10 +566,13 @@
 
 <p>Maintenant, que le fichier est créé, vous devriez avoir un fichier <code>.conf</code> dans le dossier <code>conf</code> du projet.</p>
 <p>Il devrait être présenté comme ceci :</p>
-<div class="highlight"><pre><span></span><code>REPO_DOCKER_URL=votre-url-docker
-PYTHON_VERSION=3.10.4
-GIT_TOKEN=votre_token_github
-GIT_REPO=https://github.com/votre-nom-d&#39;utilisateur/nom-du-repo/archive/nom-de-la-branche.zip
+<div class="highlight"><pre><span></span><code>REPO_DOCKER_URL=your_docker_url
+PYTHON_VERSION=3.X.X
+GIT_TOKEN=your_github_token
+GIT_REPO=https://github.com/user/project-name/archive/name-of-branch.zip
+GIT_USERNAME=username
+GIT_EMAIL=your@mail.com
+COMMIT_MESSAGE=commit message
 EXT_PORT=8989
 </code></pre></div>
 <div class="admonition info">
@@ -572,7 +589,7 @@ EXT_PORT=8989
 <div class="termy">
 <div class="highlight"><pre><span></span><code><span class="gp">$ </span><span class="o">(</span>env-myd<span class="o">)</span> python myd.py build --help
 
-<span class="go"> Usage: myd.py build [OPTIONS] File Option                                                   </span>
+<span class="go"> Usage: myd.py build [OPTIONS] File                                                   </span>
 
 <span class="go"> Build each Docker container as needed to run. 🧱                                                          </span>
 

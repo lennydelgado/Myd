@@ -417,7 +417,7 @@
 
 <h1 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h1>
 <h2 id="prerequis">Prérequis<a class="headerlink" href="#prerequis" title="Permanent link">&para;</a></h2>
-<p>Ce projet a été entièrement réalisé dans un environnement Linux Debian et il devrait être compatible avec tous les systèmes supportant Linux.</p>
+<p>Ce projet a été entièrement réalisé dans un environnement Linux Debian et il devrais être compatible avec tous les systèmes supportant Linux.</p>
 <p>Tout d&rsquo;abord, vous aurez besoin de <a class="internal-link" href="https://www.docker.com/" target="_blank">Docker</a> pour plus d&rsquo;informations concernant son installation allez voir la documentation <a class="internal-link" href="https://docs.docker.com/engine/install/" target="_blank">ici</a>.</p>
 <p>Vous aurez également de <a class="internal-link" href="https://www.python.org/" target="_blank">Python</a>, vous pouvez l&rsquo;installer en cliquant <a class="internal-link" href="https://www.python.org/downloads/" target="_blank">ici</a>. Il vous faudra également <a class="internal-link" href="https://pypi.org/project/pip/" target="_blank">Pip</a>, pour suivre les instructions d&rsquo;installation, je vous redirige <a class="internal-link" href="https://pip.pypa.io/en/stable/installation/" target="_blank">ici</a>.</p>
 <p>Enfin, vous aurez aussi besoin de <a class="internal-link" href="https://code.visualstudio.com/" target="_blank">Visual Studio Code</a>. Il vous permettra de faire de la <a class="internal-link" href="https://fr.wikipedia.org/wiki/Redirection_de_port" target="_blank">redirection de port</a>, de manière simple.</p>
@@ -431,7 +431,7 @@
 
 <p>Cette commande à pour effet de vous crée le dossier dans lequel ce trouveras toutes les futures librairies que nous installerons mais d&rsquo;abord il faut l’activer, pour cela taper la commande suivante :</p>
 <div class="termy">
-<div class="highlight"><pre><span></span><code><span class="gp">$ </span><span class="nb">source</span> aboslute-path-to-project/env-myd/bin/activate
+<div class="highlight"><pre><span></span><code><span class="gp">$ </span><span class="nb">source</span> absolute-path-to-project/env-myd/bin/activate
 </code></pre></div>
 </div>
 
@@ -447,7 +447,7 @@
 <h2 id="recuperation-du-projet">Récupération du projet<a class="headerlink" href="#recuperation-du-projet" title="Permanent link">&para;</a></h2>
 <p>Nous vous donnons ci-dessous la commande à effectuer pour cloner le répertoire <a class="internal-link" href="https://github.com/lennydelgado/Myd-project" target="_blank">GitHub</a>, pour cela taper la commande suivante :</p>
 <div class="termy">
-<div class="highlight"><pre><span></span><code><span class="gp">$ </span>git clone git@github.com:lennydelgado/Myd.git
+<div class="highlight"><pre><span></span><code><span class="gp">$ </span>git clone https://github.com/lennydelgado/Myd.git
 
 <span class="go">&lt;span style=&quot;color: green;&quot;&gt;INFO&lt;/span&gt;:     -  Clonage dans &#39;Myd&#39;...</span>
 <span class="go">&lt;span style=&quot;color: green;&quot;&gt;INFO&lt;/span&gt;:     -  Réception d&#39;objets: 100% (17/17), 7.77 Mio/s, fait.</span>
@@ -468,6 +468,8 @@
 <span class="go">│</span>
 <span class="go">├── nginx/</span>
 <span class="go">│   ├── build-myd-docs.sh</span>
+<span class="go">│   ├── first-build-myd-mkdocs.sh</span>
+<span class="go">│   ├── myd-mkdocs.dockerfile</span>
 <span class="go">│   ├── myd-docs.dockerfile</span>
 <span class="go">│   └── run-nginx.sh</span>
 <span class="go">|</span>
@@ -483,7 +485,7 @@
 <h2 id="installation-des-dependances">Installation des dépendances<a class="headerlink" href="#installation-des-dependances" title="Permanent link">&para;</a></h2>
 <p>Maintenant que vous avez installé et activez l&rsquo;environnement virtuel et récupérer le projet vous pouvez installer toutes les librairies nécessaires au fonctionnement du projet sans aucune crainte, il vous suffit d&rsquo;entrer la commande suivante :</p>
 <div class="termy">
-<div class="highlight"><pre><span></span><code><span class="gp">$ </span><span class="o">(</span>env-myd<span class="o">)</span> pip install -r requirement.txt
+<div class="highlight"><pre><span></span><code><span class="gp">$ </span><span class="o">(</span>env-myd<span class="o">)</span> pip install -r requirements.txt
 
 <span class="go">&lt;span style=&quot;color: green;&quot;&gt;INFO&lt;/span&gt;:     -  Installation des dépendances</span>
 </code></pre></div>

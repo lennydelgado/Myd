@@ -394,26 +394,18 @@
 <p>Pour pouvoir utiliser <a class="internal-link" href="https://docs.github.com/en/pages/getting-started-with-GitHub-pages/about-GitHub-pages" target="_blank">GitHub Pages</a> de manière gratuite il vous faudra <strong>obligatoirement</strong> un répertoire <a class="internal-link" href="https://github.com/" target="_blank">GitHub</a> <strong>public</strong>. Pour mettre votre site en privée il vous faudra avoir un abonnement sur <a class="internal-link" href="https://github.com/" target="_blank">GitHub</a> pour plus d&rsquo;information rendez-vous <a class="internal-link" href="https://docs.github.com/en/pages/getting-started-with-github-pages/about-github-pages" target="_blank">ici</a>.</p>
 </div>
 <h2 id="recuperation-du-site">Récupération du site<a class="headerlink" href="#recuperation-du-site" title="Permanent link">&para;</a></h2>
-<p>Dans un premier temps, vous devrez récupérer les pages <code>HTML</code> de votre site elles ont été générées dans le container <a class="internal-link" href="https://www.nginx.com/" target="_blank">Nginx</a> lors de la du <code>build</code> du programme.</p>
-<p>Assurez-vous d&rsquo;être dans le répertoire que vous souhaitez utilisé, puis taper la commande suivante :</p>
-<div class="termy">
-<div class="highlight"><pre><span></span><code><span class="gp">$ </span>docker cp nginx-myd:/usr/share/nginx/html .
-
-<span class="go">---&gt; 100%</span>
-
-<span class="go">Copie terminer</span>
-</code></pre></div>
-</div>
-
-<p>Vous devriez à présent avoir un dossier nommé <code>html</code>, vous pouvez à présent le renommé <code>docs</code>. Enfin, ajouter le à votre répertoire <a class="internal-link" href="https://github.com/" target="_blank">GitHub</a>.</p>
+<p>Si vous n&rsquo;avez pas eu de problème lors du <code>build</code>, un nouveau dossier est apparu sur votre répertoire GitHub et il se nomme <code>site</code>.</p>
+<p>Ce dossier contient toutes les pages <strong>HTML</strong> générées par <a class="internal-link" href="https://www.mkdocs.org/" target="_blank">MkDocs</a>, si le dossier est bien présent nous pouvons passer à l&rsquo;étape d&rsquo;après sinon relancer vous-même une génération.</p>
 <h2 id="mise-en-ligne-sur-github-pages">Mise en ligne sur GitHub Pages<a class="headerlink" href="#mise-en-ligne-sur-github-pages" title="Permanent link">&para;</a></h2>
 <p>Afin de mettre votre site sur <a class="internal-link" href="https://docs.github.com/en/pages/getting-started-with-github-pages/about-github-pages" target="_blank">GitHub Pages</a> rendez-vous sur la page internet de votre répertoire puis dans <em>settings</em> puis dans <em>pages</em> comme ci-dessous.</p>
 <p><img alt="1_github.png" src="../../img/1_github.png" title="GitHub Pages" /></p>
-<p>Par la suite vous choisissez la <em>branch</em> qui contient le dossier avec les fichiers de votre site.</p>
+<p>Par la suite vous choisissez la méthode de déploiement par une <a class="internal-link" href="https://docs.github.com/en/actions" target="_blank">GitHub Action</a> et vous cliquez sur configure en dessous de <strong>Static HTML</strong>.</p>
 <p><img alt="2_github.png" src="../../img/2_github.png" title="GitHub Pages" /></p>
-<p>Enfin sélectionner le dossier précis du répertoire de votre site récupérer plus tôt.</p>
+<p>Vous devriez normalement tombez sur cette page.</p>
 <p><img alt="3_github.png" src="../../img/3_github.png" title="GitHub Pages" /></p>
-<p>Vous pouvez sauvgardé, pour maintenir le site à jour lors de modification vous aurez à modifier la documentation de votre site <a class="internal-link" href="https://www.mkdocs.org/" target="_blank">MkDocs</a>, puis à refaire les étapes à partir de la <a class="internal-link" href="../how-to-use-myd-project/" target="_blank">construction des containers</a>.</p>
+<p>Nous allons modifier ce fichier pour faire que dès lors on utilise <strong>Myd</strong>, la génération et la publication se fasse automatiquement lors d&rsquo;une modification dans le dossier site. Il faut effectuer des modifications aux lignes 7 et 39 comme ci-dessous. </p>
+<p><img alt="4_github.png" src="../../img/4_github.png" title="GitHub Pages" /></p>
+<p>Vous pouvez enregistrer, grâce à ça dès que vous utiliserez à nouveaux <strong>Myd</strong> votre documentation seras mise à jour.</p>
 
               
             </article>
