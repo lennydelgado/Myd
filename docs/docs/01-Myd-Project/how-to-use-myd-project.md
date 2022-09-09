@@ -77,11 +77,11 @@ Regardons comment la commande fonctionne :
 <div class="termy">
 ```console
 $ (env-myd) python myd.py config --help
-                                                                                         
- Usage: myd.py config [OPTIONS]                                                                            
-                                                                                                           
- Create configuration file for Myd. ✍                                                                      
-                                                                                                           
+
+ Usage: myd.py config [OPTIONS]
+
+ Create configuration file for Myd. ✍
+
 ╭─ Options ──────────────────────────────────────────────────
 --edit    --no-edit      Used to modify any existing configuration file
                          [default: no-edit]
@@ -170,18 +170,18 @@ Regardons comment cela fonctionne :
 ```console
 $ (env-myd) python myd.py build --help
 
- Usage: myd.py build [OPTIONS] File                                                   
-                                                                                                           
- Build each Docker container as needed to run. 🧱                                                          
-                                                                                                           
+ Usage: myd.py build [OPTIONS] File
+
+ Build each Docker container as needed to run. 🧱
+
 ╭─ Arguments ─────────────────────────
 file   File    Enter which configuration file you want use:
                [exemple.conf, ...][required]
 
 ╭─ Options ───────────────────────────
 option Option  Use to build specific container: debian, python,
-               nginx [default: all] 
-               
+               nginx [default: all]
+
 --help          Show this message and exit.
 ```
 <BR>
@@ -236,10 +236,10 @@ Maintenant, vous êtes prêt pour le lancement de votre site hébergé par [Ngin
 ```console
 $ (env-myd) python myd.py run --help
 
- Usage: myd.py run [OPTIONS] File 
+ Usage: myd.py run [OPTIONS] File
 
- Launches the Nginx server. 🚀                                                        
-                                                                                                           
+ Launches the Nginx server. 🚀
+
 ╭─ Arguments ─────────────────────────
 file   File             [required] Enter which configuration file you
                         want use: [exemple.conf, ...]
