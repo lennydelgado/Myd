@@ -23,4 +23,3 @@ typer[all]>=0.6.0
 
 # Spécifique Lenny pour affichage
 termcolor>=1.1.0
-termcolor>=1.1.0
